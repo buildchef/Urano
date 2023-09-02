@@ -1,0 +1,41 @@
+# Arquivos e diretórios gerados pelo Flutter
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub/
+build/
+.dartdev/
+.idea/
+.vscode/
+.metadata/
+.lock
+
+# Arquivos de configuração específicos da plataforma Android
+android/app/key.properties
+android/local.properties
+
+# Dependências do iOS (recomendado para projetos multiplataforma)
+ios/Pods/
+ios/Podfile.lock
+ios/Podfile
+
+# Arquivos de build do Xcode (recomendado para projetos iOS)
+ios/Runner.xcworkspace/
+ios/xcuserdata/
+ios/Runner.xcodeproj/xcshareddata/
+ios/Runner.xcodeproj/project.xcworkspace/
+ios/Runner.xcodeproj/xcuserdata/
+
+# Arquivos de build do Android Studio (recomendado para projetos Android)
+android/app/build/
+android/build/
+
+# Arquivos de log e cache
+*.log
+*.log.*
+*.log-*
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
