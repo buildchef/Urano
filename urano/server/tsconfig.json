@@ -1,0 +1,39 @@
+{
+  "compilerOptions": {
+      "target": "ES2015",
+      "module": "commonjs",
+      "lib": [
+          "dom",
+          "ES2020.Promise"
+      ],
+      "declaration": true,
+      "sourceMap": true,
+      "outDir": "./dist",
+      "removeComments": false,
+      "strict": true,
+      "noImplicitAny": true,
+      "strictNullChecks": true,
+      "noImplicitThis": true,
+      "alwaysStrict": true,
+      "esModuleInterop": true,
+      "moduleResolution": "node",
+      "baseUrl": "../",
+      "paths": {
+          "*": [
+              "node_modules/*",
+              "src/types/*"
+          ]
+      },
+      "useUnknownInCatchVariables": false,
+      "resolveJsonModule": true,
+      "experimentalDecorators": true,
+      "emitDecoratorMetadata": true
+  },
+  "include": [
+      "src/**/*"
+  ],
+  "exclude": [
+      "**/*.test.js",
+      "**/*.txt"
+  ]
+}
