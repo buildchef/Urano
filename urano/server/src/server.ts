@@ -1,12 +1,8 @@
 import express from "express";
+import { environment } from "./environment";
 
 const app = express();
-const port = 6666;
 
-app.get('/', (req, res) => {
-    res.json('Funcionando.').status(200);
-});
-
-app.listen(port, ()=> {
-    console.log('Rodando na porta =>', port);
+app.listen(environment.app.port, ()=> {
+    console.log(`Api rodando na porta => ${environment.app.port}`);
 });
