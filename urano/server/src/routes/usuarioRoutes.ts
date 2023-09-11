@@ -1,11 +1,17 @@
-import express, { Router } from "express";
+import express, { Router, response } from "express";
 import { UsuarioController } from "../controllers/usuarioController";
 
 const router: Router = express.Router();
-const usuarioController = new UsuarioController();
+const usuarioController: UsuarioController = new UsuarioController();
 
-router.get('/criar', (req, res)=> {
-    res.json('Nesta rota, criaremos usuarios.').status(200);
-})
+router.post('/criar', async (request: express.Request, response: express.Response)=> {
+    const resultado = await usuarioController.criar(request.body);
+    response.json(resultado).status(200);
+});
+
+router.get('/listar', async (request: express.Request, response: express.Response)=> {
+    const resultado = await usuarioController.listar();
+    response.json(resultado).status(200);
+});
 
 export default router;

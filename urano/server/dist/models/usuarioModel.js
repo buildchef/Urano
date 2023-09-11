@@ -32,6 +32,6 @@ const UsuarioSchema = new mongoose_1.Schema({
     salario: { type: Number, required: true },
     status: { type: Boolean, required: true },
 });
-const Usuario = mongoose_1.default.model('usuario', UsuarioSchema);
+const Usuario = mongoose_1.default.model('Usuario', UsuarioSchema, "usuario");
 exports.default = Usuario;
 //# sourceMappingURL=usuarioModel.js.map

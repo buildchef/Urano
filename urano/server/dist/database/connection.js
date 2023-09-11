@@ -8,28 +8,36 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getDb = exports.connect = void 0;
-const mongodb_1 = require("mongodb");
+const mongoose_1 = __importDefault(require("mongoose"));
 const environment_1 = require("../environment");
-let db;
-function connect() {
-    return __awaiter(this, void 0, void 0, function* () {
-        const client = new mongodb_1.MongoClient(environment_1.environment.db.uri);
-        try {
-            yield client.connect();
-            db = client.db(environment_1.environment.db.db_name);
-            console.log('Connection made successfully.');
-        }
-        catch (error) {
-            console.log("Error: Couldn't connect to the database.");
-        }
-    });
+class Database {
+    static conectar() {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                yield mongoose_1.default.connect(environment_1.environment.db.uri, {
+                    user: environment_1.environment.db.db_user,
+                    pass: environment_1.environment.db.db_pwd,
+                    dbName: environment_1.environment.db.db_name
+                });
+                if (this.verificarConexao() === 1) {
+                    console.log('Mongo DB conectado com sucesso!');
+                    return 1;
+                }
+                return 0;
+            }
+            catch (error) {
+                console.log('Erro ao conectar ao banco de dados.');
+                return 0;
+            }
+        });
+    }
+    static verificarConexao() {
+        return mongoose_1.default.connection.readyState;
+    }
 }
-exports.connect = connect;
-function getDb() {
-    return db;
-}
-exports.getDb = getDb;
-connect().catch(console.error);
+exports.default = Database;
 //# sourceMappingURL=connection.js.map

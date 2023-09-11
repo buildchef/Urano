@@ -19,6 +19,6 @@ const UsuarioSchema = new Schema<IUsuario>({
     status: { type: Boolean, required: true },
 })
 
-const Usuario = mongoose.model<IUsuario>('usuario', UsuarioSchema);
+const Usuario = mongoose.model<IUsuario>('Usuario', UsuarioSchema, "usuario");
 
 export default Usuario;
