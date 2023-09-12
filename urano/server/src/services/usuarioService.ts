@@ -13,8 +13,9 @@ export class UsuarioService{
         try{
             const { error, value } = this.validator.validarInputCriarUsuario(inputCriarUsuario);
             const validaCpf = this.validator.validarCpf(inputCriarUsuario.cpf);
+            const usuarioDb = await this.buscar({cpf: inputCriarUsuario.cpf});
 
-            if(!error && validaCpf){
+            if(!error && validaCpf && usuarioDb.length === 0){
                 const usuarioLogado = await this.buscar({email: inputCriarUsuario.emailUsuarioLogado});
 
                 if(usuarioLogado.length > 0){
@@ -73,7 +74,7 @@ export class UsuarioService{
                 const buscaUsuarioDB: IUsuario[] | any[] = await this.buscar({cpf: inputAtualizarUsuario.cpf});
                 const usuarioLogado = await this.buscar({email: inputAtualizarUsuario.emailUsuarioLogado});
 
-                if(buscaUsuarioDB.length > 0 && usuarioLogado.length > 0){
+                if(buscaUsuarioDB.length > 0 && usuarioLogado.length > 0 && buscaUsuarioDB[0].status){
                     const usuarioMongo: IUsuario = buscaUsuarioDB[0]; 
                     usuarioMongo.nome = inputAtualizarUsuario.nome? inputAtualizarUsuario.nome: usuarioMongo.nome;
                     usuarioMongo.email = inputAtualizarUsuario.email? inputAtualizarUsuario.email: usuarioMongo.email;
