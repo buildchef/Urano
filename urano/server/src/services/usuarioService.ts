@@ -1,5 +1,7 @@
+import { ObjectId } from "mongodb";
 import { Cargos } from "../models/enums/cargos";
 import { IInputCriarUsuario } from "../models/interfaces/inputCriarUsuario";
+import { IQuery } from "../models/interfaces/query";
 import Usuario, { IUsuario } from "../models/usuarioModel";
 
 export class UsuarioService{
@@ -44,5 +46,15 @@ export class UsuarioService{
         } catch(error){
             return {};
         }
+    }
+
+    public async buscar(query: IQuery): Promise<IUsuario[] | object>{
+        try{
+            const usuarioEncontrado: IUsuario[] = await Usuario.find(query);
+            return usuarioEncontrado;
+        } catch(error){
+            return {}
+        }
+
     }
 }

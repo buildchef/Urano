@@ -1,4 +1,5 @@
 import { IInputCriarUsuario } from "../models/interfaces/inputCriarUsuario";
+import { IQuery } from "../models/interfaces/query";
 import { IUsuario } from "../models/usuarioModel";
 import { UsuarioService } from "../services/usuarioService";
 
@@ -10,6 +11,10 @@ export class UsuarioController{
     }
 
     async listar(): Promise<IUsuario[] | object>{
-        return this.usuarioService.listar();
+        return await this.usuarioService.listar();
+    }
+
+    async buscar(body: IQuery): Promise<IUsuario[] | object>{
+       return await this.usuarioService.buscar(body);
     }
 }

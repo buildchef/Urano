@@ -61,6 +61,17 @@ class UsuarioService {
             }
         });
     }
+    buscar(query) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const usuarioEncontrado = yield usuarioModel_1.default.find(query);
+                return usuarioEncontrado;
+            }
+            catch (error) {
+                return {};
+            }
+        });
+    }
 }
 exports.UsuarioService = UsuarioService;
 //# sourceMappingURL=usuarioService.js.map

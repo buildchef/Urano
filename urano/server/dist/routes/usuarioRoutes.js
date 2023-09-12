@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const usuarioController_1 = require("../controllers/usuarioController");
+const mongodb_1 = require("mongodb");
 const router = express_1.default.Router();
 const usuarioController = new usuarioController_1.UsuarioController();
 router.post('/criar', (request, response) => __awaiter(void 0, void 0, void 0, function* () {
@@ -22,6 +23,20 @@ router.post('/criar', (request, response) => __awaiter(void 0, void 0, void 0, f
 }));
 router.get('/listar', (request, response) => __awaiter(void 0, void 0, void 0, function* () {
     const resultado = yield usuarioController.listar();
+    response.json(resultado).status(200);
+}));
+router.get('/buscar', (request, response) => __awaiter(void 0, void 0, void 0, function* () {
+    const { _id, cpf, email, cargo } = request.headers;
+    let body = {};
+    if (cpf && !Array.isArray(cpf))
+        body = Object.assign(Object.assign({}, body), { cpf: cpf });
+    if (email && !Array.isArray(cpf))
+        body = Object.assign(Object.assign({}, body), { email: email });
+    if (_id && !Array.isArray(cpf))
+        body = Object.assign(Object.assign({}, body), { _id: new mongodb_1.ObjectId(_id.toString()) });
+    if (cargo && !Array.isArray(cargo))
+        body = Object.assign(Object.assign({}, body), { cargo: cargo });
+    const resultado = yield usuarioController.buscar(body);
     response.json(resultado).status(200);
 }));
 exports.default = router;

@@ -22,7 +22,12 @@ class UsuarioController {
     }
     listar() {
         return __awaiter(this, void 0, void 0, function* () {
-            return this.usuarioService.listar();
+            return yield this.usuarioService.listar();
+        });
+    }
+    buscar(body) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield this.usuarioService.buscar(body);
         });
     }
 }
