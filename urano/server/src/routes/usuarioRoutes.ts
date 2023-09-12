@@ -44,4 +44,9 @@ router.put('/desativar', async (request: express.Request, response: express.Resp
     response.json(resultado).status(200);
 })
 
+router.put('/ativar', async (request: express.Request, response: express.Response)=> {
+    const resultado = await usuarioController.ativar(request.body);
+    response.json(resultado).status(200);
+})
+
 export default router;

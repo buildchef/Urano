@@ -1,10 +1,8 @@
-import { ObjectId } from "mongodb";
 import { Cargos } from "../models/enums/cargos";
 import { IInputCriarUsuario } from "../models/interfaces/inputCriarUsuario";
 import { IQuery } from "../models/interfaces/query";
 import Usuario, { IUsuario } from "../models/usuarioModel";
 import { IInputAtualizarUsuario } from "../models/interfaces/inputAtualizarUsuario";
-import { object } from "joi";
 import { IInputAlterarStatusUsuario } from "../models/interfaces/inputAlterarStatusUsuario";
 
 export class UsuarioService{
@@ -82,6 +80,24 @@ export class UsuarioService{
             if(buscaUsuario.length > 0 && usuarioLogado.length > 0 && buscaUsuario[0].status) {
                 const usuarioDb: IUsuario = buscaUsuario[0];
                 usuarioDb.status = false;
+                const usuarioAtualizado: IUsuario = await usuarioDb.save();
+                return usuarioAtualizado;
+            }
+
+            throw new Error('Não foi possível desativar o usuário.');
+        } catch (error){
+            return {};
+        }
+    }
+
+    public async ativar(inputAlterarStatusUsuario: IInputAlterarStatusUsuario): Promise<IUsuario | object> {
+        try{
+            const buscaUsuario = await this.buscar({cpf: inputAlterarStatusUsuario.cpf});
+            const usuarioLogado = await this.buscar({email: inputAlterarStatusUsuario.emailUsuarioLogado});
+
+            if(buscaUsuario.length > 0 && usuarioLogado.length > 0 && !buscaUsuario[0].status) {
+                const usuarioDb: IUsuario = buscaUsuario[0];
+                usuarioDb.status = true;
                 const usuarioAtualizado: IUsuario = await usuarioDb.save();
                 return usuarioAtualizado;
             }

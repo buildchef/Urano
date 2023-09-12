@@ -11,4 +11,5 @@ export declare class UsuarioController {
     buscar(body: IQuery): Promise<IUsuario[] | object>;
     atualizar(body: IInputAtualizarUsuario): Promise<IUsuario | object>;
     desativar(body: IInputAlterarStatusUsuario): Promise<IUsuario | object>;
+    ativar(body: IInputAlterarStatusUsuario): Promise<IUsuario | object>;
 }

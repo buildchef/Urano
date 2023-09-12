@@ -9,4 +9,5 @@ export declare class UsuarioService {
     buscar(query: IQuery): Promise<IUsuario[] | any[]>;
     atualizar(inputAtualizarUsuario: IInputAtualizarUsuario): Promise<IUsuario | object>;
     desativar(inputAlterarStatusUsuario: IInputAlterarStatusUsuario): Promise<IUsuario | object>;
+    ativar(inputAlterarStatusUsuario: IInputAlterarStatusUsuario): Promise<IUsuario | object>;
 }

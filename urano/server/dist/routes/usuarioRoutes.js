@@ -47,5 +47,9 @@ router.put('/desativar', (request, response) => __awaiter(void 0, void 0, void 0
     const resultado = yield usuarioController.desativar(request.body);
     response.json(resultado).status(200);
 }));
+router.put('/ativar', (request, response) => __awaiter(void 0, void 0, void 0, function* () {
+    const resultado = yield usuarioController.ativar(request.body);
+    response.json(resultado).status(200);
+}));
 exports.default = router;
 //# sourceMappingURL=usuarioRoutes.js.map

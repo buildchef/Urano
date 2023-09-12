@@ -99,6 +99,24 @@ class UsuarioService {
             }
         });
     }
+    ativar(inputAlterarStatusUsuario) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const buscaUsuario = yield this.buscar({ cpf: inputAlterarStatusUsuario.cpf });
+                const usuarioLogado = yield this.buscar({ email: inputAlterarStatusUsuario.emailUsuarioLogado });
+                if (buscaUsuario.length > 0 && usuarioLogado.length > 0 && !buscaUsuario[0].status) {
+                    const usuarioDb = buscaUsuario[0];
+                    usuarioDb.status = true;
+                    const usuarioAtualizado = yield usuarioDb.save();
+                    return usuarioAtualizado;
+                }
+                throw new Error('Não foi possível desativar o usuário.');
+            }
+            catch (error) {
+                return {};
+            }
+        });
+    }
 }
 exports.UsuarioService = UsuarioService;
 //# sourceMappingURL=usuarioService.js.map

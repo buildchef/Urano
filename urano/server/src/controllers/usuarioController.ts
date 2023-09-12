@@ -27,4 +27,8 @@ export class UsuarioController{
     async desativar(body: IInputAlterarStatusUsuario): Promise<IUsuario | object> {
         return await this.usuarioService.desativar(body);
     }
+
+    async ativar(body: IInputAlterarStatusUsuario): Promise<IUsuario | object> {
+        return await this.usuarioService.ativar(body);
+    }
 }
