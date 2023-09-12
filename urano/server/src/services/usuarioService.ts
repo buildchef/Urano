@@ -12,15 +12,12 @@ export class UsuarioService{
     public async criar(inputCriarUsuario: IInputCriarUsuario): Promise<IUsuario | object>{
         try{
             const { error, value } = this.validator.validarInputCriarUsuario(inputCriarUsuario);
+            const validaCpf = this.validator.validarCpf(inputCriarUsuario.cpf);
 
-            console.log(error);
-
-            if(!error){
-                console.log('Passei do error');
+            if(!error && validaCpf){
                 const usuarioLogado = await this.buscar({email: inputCriarUsuario.emailUsuarioLogado});
 
                 if(usuarioLogado.length > 0){
-                    console.log('Passei do usuarioLogado');
                     const usuario: IUsuario = new Usuario({
                         nome: inputCriarUsuario.nome,
                         email: inputCriarUsuario.email,
@@ -30,9 +27,7 @@ export class UsuarioService{
                         status: true
                     })
                     
-                    console.log(usuario);
                     const usuarioSalvo = await usuario.save();
-                    console.log(usuarioSalvo);
                     return usuarioSalvo;
                 }
 
@@ -57,8 +52,9 @@ export class UsuarioService{
 
     public async buscar(query: IQuery): Promise<IUsuario[] | any[]>{
         const { error, value } = this.validator.validarQuery(query);
+        const validaCpf = query.cpf? this.validator.validarCpf(query.cpf): true;
         try{
-            if (!error){
+            if (!error && validaCpf){
                 const usuarioEncontrado: IUsuario[] = await Usuario.find(query);
                 return usuarioEncontrado;
             }
@@ -71,8 +67,9 @@ export class UsuarioService{
     public async atualizar(inputAtualizarUsuario: IInputAtualizarUsuario): Promise<IUsuario | object> {
         try{
             const { error, value } = this.validator.validarInputAtualizarUsuario(inputAtualizarUsuario);
+            const validaCpf = this.validator.validarCpf(inputAtualizarUsuario.cpf);
 
-            if(!error){
+            if(!error && validaCpf){
                 const buscaUsuarioDB: IUsuario[] | any[] = await this.buscar({cpf: inputAtualizarUsuario.cpf});
                 const usuarioLogado = await this.buscar({email: inputAtualizarUsuario.emailUsuarioLogado});
 
@@ -100,8 +97,9 @@ export class UsuarioService{
     public async desativar(inputAlterarStatusUsuario: IInputAlterarStatusUsuario): Promise<IUsuario | object> {
         try{
             const { error, value } = this.validator.validarInputAlterarStatusUsuario(inputAlterarStatusUsuario);
+            const validaCpf = this.validator.validarCpf(inputAlterarStatusUsuario.cpf);
 
-            if(!error){
+            if(!error && validaCpf){
                 const buscaUsuario = await this.buscar({cpf: inputAlterarStatusUsuario.cpf});
                 const usuarioLogado = await this.buscar({email: inputAlterarStatusUsuario.emailUsuarioLogado});
 
@@ -123,8 +121,9 @@ export class UsuarioService{
     public async ativar(inputAlterarStatusUsuario: IInputAlterarStatusUsuario): Promise<IUsuario | object> {
         try{
             const { error, value } = this.validator.validarInputAlterarStatusUsuario(inputAlterarStatusUsuario);
+            const validaCpf = this.validator.validarCpf(inputAlterarStatusUsuario.cpf);
 
-            if(!error){
+            if(!error && validaCpf){
                 const buscaUsuario = await this.buscar({cpf: inputAlterarStatusUsuario.cpf});
                 const usuarioLogado = await this.buscar({email: inputAlterarStatusUsuario.emailUsuarioLogado});
 
