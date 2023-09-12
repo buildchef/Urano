@@ -30,6 +30,16 @@ class UsuarioController {
             return yield this.usuarioService.buscar(body);
         });
     }
+    atualizar(body) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield this.usuarioService.atualizar(body);
+        });
+    }
+    desativar(body) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield this.usuarioService.desativar(body);
+        });
+    }
 }
 exports.UsuarioController = UsuarioController;
 //# sourceMappingURL=usuarioController.js.map

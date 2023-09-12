@@ -39,5 +39,13 @@ router.get('/buscar', (request, response) => __awaiter(void 0, void 0, void 0, f
     const resultado = yield usuarioController.buscar(body);
     response.json(resultado).status(200);
 }));
+router.put('/atualizar', (request, response) => __awaiter(void 0, void 0, void 0, function* () {
+    const resultado = yield usuarioController.atualizar(request.body);
+    response.json(resultado).status(200);
+}));
+router.put('/desativar', (request, response) => __awaiter(void 0, void 0, void 0, function* () {
+    const resultado = yield usuarioController.desativar(request.body);
+    response.json(resultado).status(200);
+}));
 exports.default = router;
 //# sourceMappingURL=usuarioRoutes.js.map

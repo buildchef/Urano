@@ -1,7 +1,6 @@
 import express, { Router, response } from "express";
 import { UsuarioController } from "../controllers/usuarioController";
 import { ObjectId } from "mongodb";
-import { IQuery } from "../models/interfaces/query";
 
 const router: Router = express.Router();
 const usuarioController: UsuarioController = new UsuarioController();
@@ -32,6 +31,16 @@ router.get('/buscar', async (request: express.Request, response: express.Respons
     if(cargo && !Array.isArray(cargo)) body = {...body, cargo: cargo};
 
     const resultado = await usuarioController.buscar(body);
+    response.json(resultado).status(200);
+})
+
+router.put('/atualizar', async (request: express.Request, response: express.Response)=> {
+    const resultado = await usuarioController.atualizar(request.body);
+    response.json(resultado).status(200);
+})
+
+router.put('/desativar', async (request: express.Request, response: express.Response)=> {
+    const resultado = await usuarioController.desativar(request.body);
     response.json(resultado).status(200);
 })
 

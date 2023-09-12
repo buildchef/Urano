@@ -27,9 +27,9 @@ const mongoose_1 = __importStar(require("mongoose"));
 const UsuarioSchema = new mongoose_1.Schema({
     nome: { type: String, required: true },
     email: { type: String, required: true },
+    telefone: { type: String, required: true },
     cargo: { type: String, required: true },
     cpf: { type: String, required: true },
-    salario: { type: Number, required: true },
     status: { type: Boolean, required: true },
 });
 const Usuario = mongoose_1.default.model('Usuario', UsuarioSchema, "usuario");
