@@ -25,6 +25,7 @@ export const aviaoController = {
             statusDisponibilidade,
             localizacaoAtual,
             historicoVoos,
+            picture
         } = req.body;
 
         try {
@@ -38,6 +39,7 @@ export const aviaoController = {
                 statusDisponibilidade,
                 localizacaoAtual,
                 historicoVoos,
+                picture
             });
 
             return res.status(201).send(aviao);
@@ -74,6 +76,7 @@ export const aviaoController = {
             statusDisponibilidade,
             localizacaoAtual,
             historicoVoos,
+            picture
         } = req.body;
 
         try {
@@ -89,6 +92,7 @@ export const aviaoController = {
                     statusDisponibilidade,
                     localizacaoAtual,
                     historicoVoos,
+                    picture
                 },
                 { new: true }
             );

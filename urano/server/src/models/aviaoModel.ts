@@ -41,6 +41,10 @@ const aviaoSchema = new mongoose.Schema({
     data: Date,
     duracao: Number,
   }],
+  picture: {
+    type: String,
+    required: true,
+  },
 });
 
 const Aviao = mongoose.model('Aviao', aviaoSchema);

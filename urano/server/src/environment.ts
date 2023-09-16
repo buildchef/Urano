@@ -12,7 +12,7 @@ export interface IEnvironment{
 
 export const environment: IEnvironment = {
     app: {
-        port: 6666,
+        port: 3000,
     },
     db: {
         uri: "mongodb+srv://fabriciojosejunior:1234a5678b@usuarios.maqph2s.mongodb.net/?retryWrites=true&w=majority",
