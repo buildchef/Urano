@@ -11,4 +11,5 @@ export declare class Validators {
     validarQuery(query: IQuery): Joi.ValidationResult<IQuery>;
     validarInputAtualizarUsuario(inputAtualizarUsuario: IInputAtualizarUsuario): Joi.ValidationResult<IInputAtualizarUsuario>;
     validarInputAlterarStatusUsuario(inputAlterarStatusUsuario: IInputAlterarStatusUsuario): Joi.ValidationResult<IInputAlterarStatusUsuario>;
+    validarCpf(cpf: string): boolean;
 }

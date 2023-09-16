@@ -24,12 +24,11 @@ class UsuarioService {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const { error, value } = this.validator.validarInputCriarUsuario(inputCriarUsuario);
-                console.log(error);
-                if (!error) {
-                    console.log('Passei do error');
+                const validaCpf = this.validator.validarCpf(inputCriarUsuario.cpf);
+                const usuarioDb = yield this.buscar({ cpf: inputCriarUsuario.cpf });
+                if (!error && validaCpf && usuarioDb.length === 0) {
                     const usuarioLogado = yield this.buscar({ email: inputCriarUsuario.emailUsuarioLogado });
                     if (usuarioLogado.length > 0) {
-                        console.log('Passei do usuarioLogado');
                         const usuario = new usuarioModel_1.default({
                             nome: inputCriarUsuario.nome,
                             email: inputCriarUsuario.email,
@@ -38,9 +37,7 @@ class UsuarioService {
                             cargo: inputCriarUsuario.cargo || cargos_1.Cargos.ESTAGIARIO,
                             status: true
                         });
-                        console.log(usuario);
                         const usuarioSalvo = yield usuario.save();
-                        console.log(usuarioSalvo);
                         return usuarioSalvo;
                     }
                     throw new Error("Informações inválidas.");
@@ -66,8 +63,9 @@ class UsuarioService {
     buscar(query) {
         return __awaiter(this, void 0, void 0, function* () {
             const { error, value } = this.validator.validarQuery(query);
+            const validaCpf = query.cpf ? this.validator.validarCpf(query.cpf) : true;
             try {
-                if (!error) {
+                if (!error && validaCpf) {
                     const usuarioEncontrado = yield usuarioModel_1.default.find(query);
                     return usuarioEncontrado;
                 }
@@ -82,10 +80,11 @@ class UsuarioService {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const { error, value } = this.validator.validarInputAtualizarUsuario(inputAtualizarUsuario);
-                if (!error) {
+                const validaCpf = this.validator.validarCpf(inputAtualizarUsuario.cpf);
+                if (!error && validaCpf) {
                     const buscaUsuarioDB = yield this.buscar({ cpf: inputAtualizarUsuario.cpf });
                     const usuarioLogado = yield this.buscar({ email: inputAtualizarUsuario.emailUsuarioLogado });
-                    if (buscaUsuarioDB.length > 0 && usuarioLogado.length > 0) {
+                    if (buscaUsuarioDB.length > 0 && usuarioLogado.length > 0 && buscaUsuarioDB[0].status) {
                         const usuarioMongo = buscaUsuarioDB[0];
                         usuarioMongo.nome = inputAtualizarUsuario.nome ? inputAtualizarUsuario.nome : usuarioMongo.nome;
                         usuarioMongo.email = inputAtualizarUsuario.email ? inputAtualizarUsuario.email : usuarioMongo.email;
@@ -107,7 +106,8 @@ class UsuarioService {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const { error, value } = this.validator.validarInputAlterarStatusUsuario(inputAlterarStatusUsuario);
-                if (!error) {
+                const validaCpf = this.validator.validarCpf(inputAlterarStatusUsuario.cpf);
+                if (!error && validaCpf) {
                     const buscaUsuario = yield this.buscar({ cpf: inputAlterarStatusUsuario.cpf });
                     const usuarioLogado = yield this.buscar({ email: inputAlterarStatusUsuario.emailUsuarioLogado });
                     if (buscaUsuario.length > 0 && usuarioLogado.length > 0 && buscaUsuario[0].status) {
@@ -129,7 +129,8 @@ class UsuarioService {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const { error, value } = this.validator.validarInputAlterarStatusUsuario(inputAlterarStatusUsuario);
-                if (!error) {
+                const validaCpf = this.validator.validarCpf(inputAlterarStatusUsuario.cpf);
+                if (!error && validaCpf) {
                     const buscaUsuario = yield this.buscar({ cpf: inputAlterarStatusUsuario.cpf });
                     const usuarioLogado = yield this.buscar({ email: inputAlterarStatusUsuario.emailUsuarioLogado });
                     if (buscaUsuario.length > 0 && usuarioLogado.length > 0 && !buscaUsuario[0].status) {
