@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:urano/homePage.dart';
+import 'package:urano/login.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,10 +11,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Urano',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: primaryBlack),
-      home: HomePage(),
+      home: LoginPage(),
     );
   }
 }
