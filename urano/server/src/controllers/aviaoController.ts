@@ -1,7 +1,9 @@
 import { Request, Response } from "express";
 import Aviao from "../models/aviaoModel";
+import { validarAviao } from "../validators/validators";
 
 export const aviaoController = {
+
     // GET /aviao
     index: async (req: Request, res: Response) => {
         try {
@@ -29,7 +31,7 @@ export const aviaoController = {
         } = req.body;
 
         try {
-            const aviao = await Aviao.create({
+            const aviaoData = {
                 numeroSerie,
                 modelo,
                 fabricante,
@@ -40,9 +42,12 @@ export const aviaoController = {
                 localizacaoAtual,
                 historicoVoos,
                 picture
-            });
+            };
 
-            return res.status(201).send(aviao);
+            const aviao = validarAviao(aviaoData);
+            const createdAviao = await Aviao.create(aviao);
+
+            return res.status(201).send(createdAviao);
         } catch (err) {
             if (err instanceof Error) {
                 return res.status(400).send({ error: err.message });
@@ -80,24 +85,25 @@ export const aviaoController = {
         } = req.body;
 
         try {
-            const aviao = await Aviao.findByIdAndUpdate(
-                id,
-                {
-                    numeroSerie,
-                    modelo,
-                    fabricante,
-                    anoFabricacao,
-                    capacidadePassageiros,
-                    historicoManutencao,
-                    statusDisponibilidade,
-                    localizacaoAtual,
-                    historicoVoos,
-                    picture
-                },
-                { new: true }
-            );
+            const aviaoData = {
+                numeroSerie,
+                modelo,
+                fabricante,
+                anoFabricacao,
+                capacidadePassageiros,
+                historicoManutencao,
+                statusDisponibilidade,
+                localizacaoAtual,
+                historicoVoos,
+                picture
+            };
 
-            return res.status(200).send(aviao);
+            const aviao = validarAviao(aviaoData);
+        
+            const updatedAviao = await Aviao.findByIdAndUpdate(id, aviao)
+
+
+            return res.status(200).send(updatedAviao);
         } catch (err) {
             if (err instanceof Error) {
                 return res.status(400).send({ error: err.message });
