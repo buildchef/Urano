@@ -1,13 +1,17 @@
 import express from "express";
+import cors from 'cors';
+
 import { environment } from "./environment";
-import router from "./routes/usuarioRoutes";
+import router from "./routes/routes";
 import Database from "./database/connection";
 import routerPecas from "./routes/pecasRoutes";
 
 const app = express();
+
+app.use(cors());
 app.use(express.json());
-app.use('/urano/usuario', router);
-app.use('/urano/pecas', routerPecas);
+
+app.use('/urano/api', router);
 
 app.listen(environment.app.port, async ()=> {
     console.log(`Api rodando na porta => ${environment.app.port}`);

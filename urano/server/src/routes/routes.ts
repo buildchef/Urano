@@ -1,10 +1,12 @@
-import express, { Router, response } from "express";
+import express, { Router } from "express";
 import { UsuarioController } from "../controllers/usuarioController";
+import { aviaoController } from "../controllers/aviaoController";
 import { ObjectId } from "mongodb";
 
-const router: Router = express.Router();
+const router = express.Router();
 const usuarioController: UsuarioController = new UsuarioController();
 
+// Rotas de usuário
 router.post('/criar', async (request: express.Request, response: express.Response)=> {
     const resultado = await usuarioController.criar(request.body);
     response.json(resultado).status(200);
@@ -48,5 +50,16 @@ router.put('/ativar', async (request: express.Request, response: express.Respons
     const resultado = await usuarioController.ativar(request.body);
     response.json(resultado).status(200);
 })
+
+// Rotas de avião
+router.get('/aviao', aviaoController.index);
+
+router.post('/aviao', aviaoController.save);
+
+router.get('/aviao/:id', aviaoController.show);
+
+router.put('/aviao/:id', aviaoController.update);
+
+router.delete('/aviao/:id', aviaoController.delete);
 
 export default router;
