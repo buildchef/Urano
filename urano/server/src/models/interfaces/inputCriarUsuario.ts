@@ -6,5 +6,4 @@ export interface IInputCriarUsuario{
     telefone: string,
     cargo?: Cargos | string,
     cpf: string,
-    emailUsuarioLogado: string
 }

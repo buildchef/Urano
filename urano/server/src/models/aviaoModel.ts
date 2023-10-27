@@ -47,6 +47,6 @@ const aviaoSchema = new mongoose.Schema({
   },
 });
 
-const Aviao = mongoose.model('Aviao', aviaoSchema);
+const Aviao = mongoose.model('Aviao', aviaoSchema, 'aviao');
 
 export default Aviao;

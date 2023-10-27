@@ -11,47 +11,71 @@ const pecaController: PecaController = new PecaController();
 
 // Rotas de usuário
 router.post('/usuario/criar', async (request: express.Request, response: express.Response)=> {
-    const resultado = await usuarioController.criar(request.body);
-    response.json(resultado).status(200);
+    try{
+        const resultado = await usuarioController.criar(request.body);
+        response.json(resultado).status(201);
+    } catch(error) {
+        response.json({error: error.message}).status(400);
+    }
 });
 
 router.get('/usuario/listar', async (request: express.Request, response: express.Response)=> {
-    const resultado = await usuarioController.listar();
-    response.json(resultado).status(200);
+    try{
+        const resultado = await usuarioController.listar();
+        response.json(resultado).status(200);
+    } catch(error){
+        response.json({error: error.message}).status(400);
+    }
 });
 
 router.get('/usuario/buscar', async (request: express.Request, response: express.Response)=> {
-    const{
-        _id,
-        cpf,
-        email,
-        cargo
-    } = request.headers
+    try{
+        const{
+            _id,
+            cpf,
+            email,
+            cargo
+        } = request.headers
 
-    let body = {};
+        let body = {};
 
-    if (cpf && !Array.isArray(cpf)) body = {...body, cpf: cpf};
-    if(email && !Array.isArray(cpf)) body = {...body, email: email};
-    if(_id && !Array.isArray(cpf)) body = {...body, _id: new ObjectId(_id.toString())};
-    if(cargo && !Array.isArray(cargo)) body = {...body, cargo: cargo};
+        if (cpf && !Array.isArray(cpf)) body = {...body, cpf: cpf};
+        if(email && !Array.isArray(cpf)) body = {...body, email: email};
+        if(_id && !Array.isArray(cpf)) body = {...body, _id: new ObjectId(_id.toString())};
+        if(cargo && !Array.isArray(cargo)) body = {...body, cargo: cargo};
 
-    const resultado = await usuarioController.buscar(body);
-    response.json(resultado).status(200);
+        const resultado = await usuarioController.buscar(body);
+        response.json(resultado).status(200);
+    } catch(error){
+        response.json({error: error.message}).status(400);
+    }
 })
 
 router.put('/usuario/atualizar', async (request: express.Request, response: express.Response)=> {
-    const resultado = await usuarioController.atualizar(request.body);
-    response.json(resultado).status(200);
+    try{
+        const resultado = await usuarioController.atualizar(request.body);
+        response.json(resultado).status(200);
+    } catch(error){
+        response.json({error: error.message}).status(400);
+    }
 })
 
 router.put('/usuario/desativar', async (request: express.Request, response: express.Response)=> {
-    const resultado = await usuarioController.desativar(request.body);
-    response.json(resultado).status(200);
+    try{
+        const resultado = await usuarioController.desativar(request.body);
+        response.json(resultado).status(200);
+    } catch(error){
+        response.json({error: error.message}).status(400);
+    }
 })
 
 router.put('/usuario/ativar', async (request: express.Request, response: express.Response)=> {
-    const resultado = await usuarioController.ativar(request.body);
-    response.json(resultado).status(200);
+    try{
+        const resultado = await usuarioController.ativar(request.body);
+        response.json(resultado).status(200);
+    } catch(error){
+        response.json({error: error.message}).status(400);
+    }
 })
 
 // Rotas de avião
@@ -67,55 +91,79 @@ router.delete('/aviao/:id', aviaoController.delete);
 
 // Rotas de Peças
 router.post('/pecas/adicionar', async (request: express.Request, response: express.Response)=> {
-    const resultado = await pecaController.adicionar(request.body);
-    response.json(resultado).status(200);
+    try{
+        const resultado = await pecaController.adicionar(request.body);
+        response.json(resultado).status(201);
+    } catch(error){
+        response.json({error: error.message}).status(400);
+    }
 });
 
 router.get('/pecas/listar', async (request: express.Request, response: express.Response)=> {
-    const resultado = await pecaController.listar();
-    response.json(resultado).status(200);
+    try{
+        const resultado = await pecaController.listar();
+        response.json(resultado).status(200);
+    } catch(error){
+        response.json({error: error.message}).status(400);
+    }
 });
 
 router.get('/pecas/buscar', async (request: express.Request, response: express.Response)=> {
-    const{
-        nome,
-        codigo,
-        classe,
-        preco
-    } = request.headers
+    try{
+        const{
+            nome,
+            codigo,
+            classe,
+            preco
+        } = request.headers
 
-    let body = {};
+        let body = {};
 
-    if (nome && !Array.isArray(nome)) body = {...body, nome: nome};
-    if(codigo && !Array.isArray(codigo)) body = {...body, codigo: codigo};
-    if(classe && !Array.isArray(classe)) body = {...body, classe: classe};
-    if(preco && !Array.isArray(preco)) body = {...body, preco: preco};
+        if (nome && !Array.isArray(nome)) body = {...body, nome: nome};
+        if(codigo && !Array.isArray(codigo)) body = {...body, codigo: codigo};
+        if(classe && !Array.isArray(classe)) body = {...body, classe: classe};
+        if(preco && !Array.isArray(preco)) body = {...body, preco: preco};
 
-    const resultado = await pecaController.buscar(body);
-    response.json(resultado).status(200);
+        const resultado = await pecaController.buscar(body);
+        response.json(resultado).status(200);
+    } catch(error){
+        response.json({error: error.message}).status(400);
+    }
 })
 
 router.get('/pecas/contar', async (request: express.Request, response: express.Response)=> {
-    const{
-        classe
-    } = request.headers
+    try{
+        const{
+            classe
+        } = request.headers
 
-    let body = {
-        classe: classe && !Array.isArray(classe) ? classe : ""
-    };
+        let body = {
+            classe: classe && !Array.isArray(classe) ? classe : ""
+        };
 
-    const resultado = await pecaController.contarPecas(body);
-    response.json(resultado).status(200);
+        const resultado = await pecaController.contarPecas(body);
+        response.json(resultado).status(200);
+    } catch(error) {
+        response.json({error: error.message}).status(400);
+    }
 })
 
 router.put('/pecas/desabilitar', async (request: express.Request, response: express.Response)=> {
-    const resultado = await pecaController.desabilitar(request.body);
-    response.json(resultado).status(200);
+    try{
+        const resultado = await pecaController.desabilitar(request.body);
+        response.json(resultado).status(200);
+    } catch(error){
+        response.json({error: error.message}).status(400);
+    }
 })
 
 router.put('/pecas/habilitar', async (request: express.Request, response: express.Response)=> {
-    const resultado = await pecaController.habilitar(request.body);
-    response.json(resultado).status(200);
+    try{
+        const resultado = await pecaController.habilitar(request.body);
+        response.json(resultado).status(200);
+    } catch(error){
+        response.json({error: error.message}).status(400);
+    }
 })
 
 

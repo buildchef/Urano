@@ -8,7 +8,7 @@ import { PecaService } from "../services/pecaService";
 export class PecaController{
     pecaService: PecaService = new PecaService();
 
-    async adicionar(body: IInputAdicionarPeca): Promise<IPeca | object>{
+    async adicionar(body: IInputAdicionarPeca): Promise<IPeca>{
         return await this.pecaService.adicionar(body);
     }
 

@@ -6,7 +6,7 @@ import { IPeca } from "../models/pecaModel";
 import { PecaService } from "../services/pecaService";
 export declare class PecaController {
     pecaService: PecaService;
-    adicionar(body: IInputAdicionarPeca): Promise<IPeca | object>;
+    adicionar(body: IInputAdicionarPeca): Promise<IPeca>;
     listar(): Promise<IPeca[]>;
     buscar(body: IQueryPecas): Promise<IPeca[]>;
     contarPecas(body: IInputContarPecas): Promise<number>;
