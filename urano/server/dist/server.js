@@ -16,9 +16,11 @@ const express_1 = __importDefault(require("express"));
 const environment_1 = require("./environment");
 const usuarioRoutes_1 = __importDefault(require("./routes/usuarioRoutes"));
 const connection_1 = __importDefault(require("./database/connection"));
+const pecasRoutes_1 = __importDefault(require("./routes/pecasRoutes"));
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
 app.use('/urano/usuario', usuarioRoutes_1.default);
+app.use('/urano/pecas', pecasRoutes_1.default);
 app.listen(environment_1.environment.app.port, () => __awaiter(void 0, void 0, void 0, function* () {
     console.log(`Api rodando na porta => ${environment_1.environment.app.port}`);
     yield connection_1.default.conectar();
