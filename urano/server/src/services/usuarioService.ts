@@ -26,7 +26,7 @@ export class UsuarioService{
                         cpf: inputCriarUsuario.cpf,
                         cargo: inputCriarUsuario.cargo || Cargos.ESTAGIARIO,
                         status: true
-                    })
+                    });
                     
                     const usuarioSalvo = await usuario.save();
                     return usuarioSalvo;

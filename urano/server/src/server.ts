@@ -4,6 +4,7 @@ import cors from 'cors';
 import { environment } from "./environment";
 import router from "./routes/routes";
 import Database from "./database/connection";
+import routerPecas from "./routes/pecasRoutes";
 
 const app = express();
 
