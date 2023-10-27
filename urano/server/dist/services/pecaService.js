@@ -36,9 +36,11 @@ class PecaService {
     adicionar(inputAdicionarPeca) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
+                inputAdicionarPeca.classe = inputAdicionarPeca.classe.toUpperCase();
                 const { error, value } = this.validator.validarInputAdicionarPeca(inputAdicionarPeca);
                 const usuarioLogado = yield this.usuarioService.buscar({ email: inputAdicionarPeca.emailUsuarioLogado });
-                if (!usuarioLogado || error) {
+                const pecaVerificar = yield this.buscar({ classe: inputAdicionarPeca.classe, codigo: inputAdicionarPeca.codigo });
+                if (usuarioLogado.length <= 0 || error || pecaVerificar.length > 0) {
                     throw new Error("Erro na validacao. Os dados informados sao invalidos.");
                 }
                 ;
@@ -62,6 +64,10 @@ class PecaService {
     buscar(query) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
+                if (query.classe) {
+                    query.classe = query.classe.toUpperCase();
+                }
+                ;
                 const { error, value } = this.validator.validarQueryPecas(query);
                 if (error) {
                     throw new Error('Erro na validacao. Os dados informados sao invalidos.');
@@ -69,7 +75,7 @@ class PecaService {
                 ;
                 // @ts-ignore
                 if (query.classe) {
-                    query.classe = classePeca_1.ClassePeca[query.classe.toUpperCase()];
+                    query.classe = classePeca_1.ClassePeca[query.classe];
                 }
                 const pecas = yield pecaModel_1.default.find(query);
                 return pecas;
@@ -82,13 +88,21 @@ class PecaService {
     contarPecas(inputContarPecas) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
+                inputContarPecas.classe = inputContarPecas.classe.toUpperCase();
                 const { error, value } = this.validator.validarInpuContarPecas(inputContarPecas);
                 if (error) {
                     throw new Error('Erro na validacao. Os dados informados sao invalidos.');
                 }
                 ;
                 const pecas = yield this.buscar({ classe: inputContarPecas.classe });
-                return pecas.length;
+                let contador = 0;
+                pecas.forEach((peca) => {
+                    if (peca.status) {
+                        contador++;
+                    }
+                    ;
+                });
+                return contador;
             }
             catch (error) {
                 return -1;
@@ -98,9 +112,10 @@ class PecaService {
     desabilitar(inputDesabilitarPeca) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
+                inputDesabilitarPeca.classe = inputDesabilitarPeca.classe.toUpperCase();
                 const { error, value } = this.validator.validarInputDesabilitarPeca(inputDesabilitarPeca);
                 const usuarioLogado = yield this.usuarioService.buscar({ email: inputDesabilitarPeca.emailUsuarioLogado });
-                if (error || !usuarioLogado) {
+                if (error || usuarioLogado.length <= 0) {
                     throw new Error('Erro na validacao. Os dados informados sao invalidos.');
                 }
                 ;
@@ -125,9 +140,10 @@ class PecaService {
     habilitar(inputHabilitarPeca) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
+                inputHabilitarPeca.classe = inputHabilitarPeca.classe.toUpperCase();
                 const { error, value } = this.validator.validarInputDesabilitarPeca(inputHabilitarPeca);
                 const usuarioLogado = yield this.usuarioService.buscar({ email: inputHabilitarPeca.emailUsuarioLogado });
-                if (error || !usuarioLogado) {
+                if (error || usuarioLogado.length <= 0) {
                     throw new Error('Erro na validacao. Os dados informados sao invalidos.');
                 }
                 ;

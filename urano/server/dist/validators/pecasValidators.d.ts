@@ -5,6 +5,7 @@ import { IInputTrocarStatusPeca } from "../models/interfaces/inputTrocarStatusPe
 import { IInputContarPecas } from "../models/interfaces/inputContarPecas";
 export declare class PecasValidators {
     emailRegex: RegExp;
+    enumValido: string[];
     validarInputAdicionarPeca(inputAdicionarPeca: IInputAdicionarPeca): Joi.ValidationResult<IInputAdicionarPeca>;
     validarQueryPecas(query: IQueryPecas): Joi.ValidationResult<IQueryPecas>;
     validarInpuContarPecas(inpuContarPecas: IInputContarPecas): Joi.ValidationResult<IInputContarPecas>;

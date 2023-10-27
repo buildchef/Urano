@@ -22,10 +22,12 @@ export class PecaService {
 
     public async adicionar(inputAdicionarPeca: IInputAdicionarPeca): Promise<IPeca | object> {
         try{
+            inputAdicionarPeca.classe = inputAdicionarPeca.classe.toUpperCase();
             const { error, value } = this.validator.validarInputAdicionarPeca(inputAdicionarPeca);
             const usuarioLogado = await this.usuarioService.buscar({ email: inputAdicionarPeca.emailUsuarioLogado });
+            const pecaVerificar = await this.buscar({ classe: inputAdicionarPeca.classe, codigo: inputAdicionarPeca.codigo});
 
-            if(!usuarioLogado || error){
+            if(usuarioLogado.length <= 0 || error || pecaVerificar.length > 0){
                 throw new Error("Erro na validacao. Os dados informados sao invalidos.");
             };
 
@@ -48,6 +50,7 @@ export class PecaService {
 
     public async buscar(query: IQueryPecas): Promise<IPeca[]> {
         try {
+            if(query.classe){query.classe = query.classe.toUpperCase()};
             const { error, value } = this.validator.validarQueryPecas(query);
 
             if(error) {
@@ -55,7 +58,7 @@ export class PecaService {
             };
 
             // @ts-ignore
-            if(query.classe){query.classe = ClassePeca[query.classe.toUpperCase()]}
+            if(query.classe){query.classe = ClassePeca[query.classe]}
 
             const pecas = await Peca.find(query);
             return pecas;
@@ -66,6 +69,7 @@ export class PecaService {
 
     public async contarPecas(inputContarPecas: IInputContarPecas): Promise<number>{
         try {
+            inputContarPecas.classe = inputContarPecas.classe.toUpperCase();
             const { error, value } = this.validator.validarInpuContarPecas(inputContarPecas);
 
             if(error) {
@@ -74,7 +78,13 @@ export class PecaService {
 
             const pecas = await this.buscar({ classe: inputContarPecas.classe });
 
-            return pecas.length;
+            let contador = 0;
+
+            pecas.forEach((peca) => {
+                if(peca.status){contador++};
+            });
+
+            return contador;
         } catch(error) {
             return -1
         }
@@ -82,10 +92,11 @@ export class PecaService {
 
     public async desabilitar(inputDesabilitarPeca: IInputTrocarStatusPeca): Promise<boolean>{
         try{
+            inputDesabilitarPeca.classe = inputDesabilitarPeca.classe.toUpperCase();
             const { error, value } = this.validator.validarInputDesabilitarPeca(inputDesabilitarPeca);
             const usuarioLogado = await this.usuarioService.buscar({ email: inputDesabilitarPeca.emailUsuarioLogado });
 
-            if(error || !usuarioLogado) {
+            if(error || usuarioLogado.length <= 0) {
                 throw new Error('Erro na validacao. Os dados informados sao invalidos.');
             };
 
@@ -111,10 +122,11 @@ export class PecaService {
 
     public async habilitar(inputHabilitarPeca: IInputTrocarStatusPeca): Promise<boolean>{
         try{
+            inputHabilitarPeca.classe = inputHabilitarPeca.classe.toUpperCase();
             const { error, value } = this.validator.validarInputDesabilitarPeca(inputHabilitarPeca);
             const usuarioLogado = await this.usuarioService.buscar({ email: inputHabilitarPeca.emailUsuarioLogado });
 
-            if(error || !usuarioLogado) {
+            if(error || usuarioLogado.length <= 0) {
                 throw new Error('Erro na validacao. Os dados informados sao invalidos.');
             };
 

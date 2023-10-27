@@ -25,16 +25,18 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PecasValidators = void 0;
 const Joi = __importStar(require("joi"));
+const classePeca_1 = require("../models/enums/classePeca");
 class PecasValidators {
     constructor() {
         this.emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        this.enumValido = Object.keys(classePeca_1.ClassePeca);
     }
     validarInputAdicionarPeca(inputAdicionarPeca) {
         const bodySchema = Joi.object({
             emailUsuarioLogado: Joi.string().pattern(this.emailRegex).required(),
             nome: Joi.string().min(1).max(99).required(),
             codigo: Joi.string().length(5).pattern(/^\d+$/).required(),
-            classe: Joi.string().required(),
+            classe: Joi.string().valid(...this.enumValido).required(),
             preco: Joi.string().regex(/^\d+(,\d+)*$/).required(),
         });
         return bodySchema.validate(inputAdicionarPeca);
@@ -43,14 +45,14 @@ class PecasValidators {
         const bodySchema = Joi.object({
             nome: Joi.string().min(1).max(99),
             codigo: Joi.string().length(5).pattern(/^\d+$/),
-            classe: Joi.string(),
+            classe: Joi.string().valid(...this.enumValido),
             preco: Joi.string().regex(/^\d+(,\d+)*$/)
         });
         return bodySchema.validate(query);
     }
     validarInpuContarPecas(inpuContarPecas) {
         const bodySchema = Joi.object({
-            classe: Joi.string().required(),
+            classe: Joi.string().valid(...this.enumValido).required(),
         });
         return bodySchema.validate(inpuContarPecas);
     }
@@ -58,7 +60,7 @@ class PecasValidators {
         const bodySchema = Joi.object({
             emailUsuarioLogado: Joi.string().pattern(this.emailRegex).required(),
             codigo: Joi.string().length(5).pattern(/^\d+$/).required(),
-            classe: Joi.string().required(),
+            classe: Joi.string().valid(...this.enumValido).required(),
         });
         return bodySchema.validate(inputDesabilitarPeca);
     }
