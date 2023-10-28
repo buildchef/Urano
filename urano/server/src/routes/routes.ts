@@ -3,10 +3,12 @@ import { UsuarioController } from "../controllers/usuarioController";
 import { aviaoController } from "../controllers/aviaoController";
 import { ObjectId } from "mongodb";
 import { PecaController } from "../controllers/pecaController";
+import { PontoController } from "../controllers/pontoController";
 
 const router = express.Router();
 const usuarioController: UsuarioController = new UsuarioController();
 const pecaController: PecaController = new PecaController();
+const pontoController: PontoController = new PontoController();
 
 
 // Rotas de usuário
@@ -115,7 +117,7 @@ router.get('/pecas/buscar', async (request: express.Request, response: express.R
             codigo,
             classe,
             preco
-        } = request.headers
+        } = request.headers;
 
         let body = {};
 
@@ -166,5 +168,47 @@ router.put('/pecas/habilitar', async (request: express.Request, response: expres
     }
 })
 
+// Rotas de Ponto
+router.post('/ponto/registrar', async (request: express.Request, response: express.Response)=> {
+    try{
+        const resultado = await pontoController.registrarPonto(request.body);
+        response.json(resultado).status(200);
+    } catch(error){
+        response.json({error: error.message}).status(400);
+    }
+
+})
+
+router.get('/ponto/listar', async (request: express.Request, response: express.Response)=> {
+    try{
+        const resultado = await pontoController.listar();
+        response.json(resultado).status(200);
+    } catch(error) {
+        response.json({error: error.message}).status(400);
+    }
+})
+
+router.get('/ponto/buscar', async (request: express.Request, response: express.Response)=>{
+    try{
+        const{
+            identificador_unico,
+            data,
+            status,
+            marcador
+        } = request.headers;
+
+        let body = {};
+
+        if (identificador_unico && !Array.isArray(identificador_unico)) body = {...body, identificadorUnico: identificador_unico};
+        if(data && !Array.isArray(data)) body = {...body, data: data};
+        if(status && !Array.isArray(status)) body = {...body, status: status};
+        if(marcador && !Array.isArray(marcador)) body = {...body, marcador: marcador};
+
+        const resultado = await pontoController.buscar(body);
+        response.json(resultado).status(200);
+    } catch(error){
+        response.json({error: error.message}).status(400);
+    } 
+})
 
 export default router;

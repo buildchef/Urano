@@ -9,6 +9,10 @@ import { IInputTrocarStatusPeca } from "../models/interfaces/inputTrocarStatusPe
 import { IInputContarPecas } from "../models/interfaces/inputContarPecas";
 import { ClassePeca } from "../models/enums/classePeca";
 import { IInputAviao } from "../models/interfaces/inputAviao";
+import { IInputRegistrarPonto } from "../models/interfaces/inputRegistrarPonto";
+import { StatusPonto } from "../models/enums/statusPonto";
+import { IQueryPonto } from "../models/interfaces/queryPonto";
+import { Marcador } from "../models/enums/marcador";
 
 export class Validators {
 
@@ -16,7 +20,9 @@ export class Validators {
   emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   telefoneRegex = /^[0-9]+$/;
   nomeRegex = /^[A-Za-z]+$/;
-  enumValido = Object.keys(ClassePeca);
+  enumValidoClassePeca = Object.keys(ClassePeca);
+  enumValidoStatusPonto = Object.keys(StatusPonto);
+  enumValidoMarcadorPonto = Object.keys(Marcador);
 
 
   public validarInputCriarUsuario(inputCriarUsuario: IInputCriarUsuario) {
@@ -105,44 +111,66 @@ export class Validators {
   }
 
   //Validators de Peças
-public validarInputAdicionarPeca(inputAdicionarPeca: IInputAdicionarPeca) {
-  const bodySchema = Joi.object<IInputAdicionarPeca>({
-      nome: Joi.string().min(1).max(99).required(),
-      codigo: Joi.string().length(5).pattern(/^\d+$/).required(),
-      classe: Joi.string().valid(...this.enumValido).required(),
-      preco: Joi.string().regex(/^\d+(,\d+)*$/).required(),
-  });
+  public validarInputAdicionarPeca(inputAdicionarPeca: IInputAdicionarPeca) {
+    const bodySchema = Joi.object<IInputAdicionarPeca>({
+        nome: Joi.string().min(1).max(99).required(),
+        codigo: Joi.string().length(5).pattern(/^\d+$/).required(),
+        classe: Joi.string().valid(...this.enumValidoClassePeca).required(),
+        preco: Joi.string().regex(/^\d+(,\d+)*$/).required(),
+    });
 
-  return bodySchema.validate(inputAdicionarPeca);
-}
+    return bodySchema.validate(inputAdicionarPeca);
+  }
 
-public validarQueryPecas(query: IQueryPecas) {
-  const bodySchema = Joi.object<IQueryPecas>({
-      nome:  Joi.string().min(1).max(99),
-      codigo: Joi.string().length(5).pattern(/^\d+$/),
-      classe: Joi.string().valid(...this.enumValido),
-      preco: Joi.string().regex(/^\d+(,\d+)*$/)
-  });
+  public validarQueryPecas(query: IQueryPecas) {
+    const bodySchema = Joi.object<IQueryPecas>({
+        nome:  Joi.string().min(1).max(99),
+        codigo: Joi.string().length(5).pattern(/^\d+$/),
+        classe: Joi.string().valid(...this.enumValidoClassePeca),
+        preco: Joi.string().regex(/^\d+(,\d+)*$/)
+    });
 
-  return bodySchema.validate(query);
-}
+    return bodySchema.validate(query);
+  }
 
-public validarInpuContarPecas(inpuContarPecas: IInputContarPecas) {
-  const bodySchema = Joi.object<IInputContarPecas>({
-      classe: Joi.string().valid(...this.enumValido).required(),
-  });
+  public validarInpuContarPecas(inpuContarPecas: IInputContarPecas) {
+    const bodySchema = Joi.object<IInputContarPecas>({
+        classe: Joi.string().valid(...this.enumValidoClassePeca).required(),
+    });
 
-  return bodySchema.validate(inpuContarPecas);
-}
+    return bodySchema.validate(inpuContarPecas);
+  }
 
-public validarInputDesabilitarPeca(inputDesabilitarPeca: IInputTrocarStatusPeca) {
-  const bodySchema = Joi.object<IInputTrocarStatusPeca>({
-      codigo: Joi.string().length(5).pattern(/^\d+$/).required(),
-      classe: Joi.string().valid(...this.enumValido).required(),
-  });
+  public validarInputDesabilitarPeca(inputDesabilitarPeca: IInputTrocarStatusPeca) {
+    const bodySchema = Joi.object<IInputTrocarStatusPeca>({
+        codigo: Joi.string().length(5).pattern(/^\d+$/).required(),
+        classe: Joi.string().valid(...this.enumValidoClassePeca).required(),
+    });
 
-  return bodySchema.validate(inputDesabilitarPeca);
-}
+    return bodySchema.validate(inputDesabilitarPeca);
+  }
+
+  // Validators de Ponto
+  public validarInputRegistrarPonto(inputRegistrarPonto: IInputRegistrarPonto) {
+    const bodySchema = Joi.object<IInputRegistrarPonto>({
+      identificadorUnico: Joi.string().min(11).max(11).required(),
+      status: Joi.string().valid(...this.enumValidoStatusPonto).required(),
+      justificativa: Joi.string()
+    });
+
+    return bodySchema.validate(inputRegistrarPonto);
+  }
+
+  public validarQueryPonto(query: IQueryPonto) {
+    const bodySchema = Joi.object<IQueryPonto>({
+      identificadorUnico: Joi.string().min(11).max(11),
+      data: Joi.string(),
+      status: Joi.string().valid(...this.enumValidoStatusPonto),
+      marcador: Joi.string().valid(...this.enumValidoMarcadorPonto)
+    });
+
+    return bodySchema.validate(query);
+  }
 }
 
 // Validators de aviões
