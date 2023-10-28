@@ -21,7 +21,11 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: const Text('Aviões')),
+        backgroundColor: const Color.fromRGBO(40, 40, 40, 1),
+        appBar: AppBar(
+          title: const Text('Aviões'),
+          backgroundColor: const Color(0xFF1D1D1D),
+        ),
         body: Center(
           child: FutureBuilder<List<Airplane>>(
             future: futureAirplanes,
@@ -33,12 +37,24 @@ class _HomePageState extends State<HomePage> {
                       return ListTile(
                         title: Text(airplane.modelo),
                         subtitle: Text(airplane.numeroSerie),
-                        trailing: const Icon(Icons.chevron_right_outlined),
+                        trailing: const Icon(Icons.chevron_right_outlined,
+                            color: Colors.white),
                         onTap: (() => {openPage(context, airplane)}),
+                        titleTextStyle: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        subtitleTextStyle: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 14,
+                          fontWeight: FontWeight.normal,
+                        ),
                       );
                     },
                     separatorBuilder: ((context, index) {
-                      return const Divider(color: Colors.black26);
+                      return const Divider(
+                          color: Color.fromARGB(66, 234, 234, 234));
                     }),
                     itemCount: snapshot.data!.length);
               } else if (snapshot.hasError) {
