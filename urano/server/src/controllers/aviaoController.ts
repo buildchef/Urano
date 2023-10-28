@@ -45,7 +45,7 @@ export const aviaoController = {
             };
 
             const aviao = validarAviao(aviaoData);
-            const createdAviao = await Aviao.create(aviao);
+            const createdAviao = await Aviao.create(aviao.value);
 
             return res.status(201).send(createdAviao);
         } catch (err) {
@@ -100,7 +100,7 @@ export const aviaoController = {
 
             const aviao = validarAviao(aviaoData);
         
-            const updatedAviao = await Aviao.findByIdAndUpdate(id, aviao)
+            const updatedAviao = await Aviao.findByIdAndUpdate(id, aviao.value, { new: true })
 
 
             return res.status(200).send(updatedAviao);

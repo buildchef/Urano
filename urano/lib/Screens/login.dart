@@ -16,16 +16,22 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color.fromRGBO(40, 40, 40, 1),
-      body: Column(
-        children: [main()],
-      ),
+      body: LayoutBuilder(builder: (context, constraints) {
+        final width = constraints.biggest.width;
+        final height = constraints.biggest.height;
+        return Stack(
+          children: [
+            main(width, height)
+          ],
+        );
+      }),
     );
   }
 
-  Container main() {
+  Container main(width, height) {
     return Container(
-      width: 390,
-      height: 844,
+      width: width,
+      height: height,
       clipBehavior: Clip.antiAlias,
       decoration: const BoxDecoration(color: Color(0xFF282828)),
       child: Stack(
@@ -263,8 +269,8 @@ class _LoginPageState extends State<LoginPage> {
             width: 279,
             height: 35,
             child: ElevatedButton(
-              onPressed: () => Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => const HomePage())),
+              onPressed: () => Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const HomePage())),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.white,
                 elevation: 0,
@@ -308,9 +314,9 @@ class _LoginPageState extends State<LoginPage> {
                       text: 'Criar nova conta',
                       recognizer: TapGestureRecognizer()
                         ..onTap = () => Navigator.push(
-                            context, 
-                            MaterialPageRoute(builder: (context) => const RegisterPage())
-                          ),
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const RegisterPage())),
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 13,

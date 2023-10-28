@@ -8,11 +8,9 @@ import { IQueryPecas } from "../models/interfaces/queryPecas";
 import { IInputTrocarStatusPeca } from "../models/interfaces/inputTrocarStatusPeca";
 import { IInputContarPecas } from "../models/interfaces/inputContarPecas";
 import { ClassePeca } from "../models/enums/classePeca";
+import { IInputAviao } from "../models/interfaces/inputAviao";
 
 export class Validators {
-  static validarAviao(aviaoData: { numeroSerie: any; modelo: any; fabricante: any; anoFabricacao: any; capacidadePassageiros: any; historicoManutencao: any; statusDisponibilidade: any; localizacaoAtual: any; historicoVoos: any; picture: any; }) {
-    throw new Error("Method not implemented.");
-  }
 
   //Validators de Usuários
   emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -148,54 +146,34 @@ public validarInputDesabilitarPeca(inputDesabilitarPeca: IInputTrocarStatusPeca)
 }
 
 // Validators de aviões
-const validarAviao = (obj: {
-  numeroSerie: string,
-  modelo: string,
-  fabricante: string,
-  anoFabricacao: Date,
-  capacidadePassageiros: number,
-  historicoManutencao: [{
-    tipoManutencao: string,
-    data: Date,
-    descricao: string,
-    custo: number,
-  }],
-  statusDisponibilidade: string,
-  localizacaoAtual: string,
-  historicoVoos: [{
-    destino: string,
-    data: Date,
-    duracao: number,
-  }],
-  picture: string,
-}) => {
-  const AviaoSchema = Joi.object({
+function validarAviao(inputAviao: IInputAviao) {
+  const bodySchema = Joi.object<IInputAviao>({
     numeroSerie: Joi.string().required(),
     modelo: Joi.string().required(),
     fabricante: Joi.string().required(),
-    anoFabricacao: Joi.date().required(),
+    anoFabricacao: Joi.number().required(),
     capacidadePassageiros: Joi.number().required(),
-    historicoManutencao: Joi.array().items(Joi.object({
-      tipoManutencao: Joi.string().required(),
-      data: Joi.date().required(),
-      descricao: Joi.string().required(),
-      custo: Joi.number().required(),
-    })).required(),
-    statusDisponibilidade: Joi.string().required(),
-    localizacaoAtual: Joi.string().required(),
-    historicoVoos: Joi.array().items(Joi.object({
-      destino: Joi.string().required(),
-      data: Joi.date().required(),
-      duracao: Joi.number().required(),
-    })).required(),
+    historicoManutencao: Joi.array().items(
+      Joi.object({
+        tipoManutencao: Joi.string().required(),
+        data: Joi.date().required(),
+        descricao: Joi.string().required(),
+        custo: Joi.number().required(),
+      })
+    ),
+    statusDisponibilidade: Joi.string().valid('Em Serviço', 'Fora de Serviço').required(),
+    localizacaoAtual: Joi.string(),
+    historicoVoos: Joi.array().items(
+      Joi.object({
+        destino: Joi.string().required(),
+        data: Joi.date().required(),
+        duracao: Joi.number().required(),
+      })
+    ),
     picture: Joi.string().required(),
-  }).validate(obj);
+  });
 
-  if (AviaoSchema.error instanceof Error) {
-    throw new Error(AviaoSchema.error.message);
-  }
-
-  return AviaoSchema.value;
+  return bodySchema.validate(inputAviao);
 }
 
-export { validarAviao }
+export { validarAviao };
