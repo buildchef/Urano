@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:urano/airplaneService.dart';
+import 'package:urano/Screens/airplaneService.dart';
 import 'package:intl/intl.dart';
-import 'package:urano/main.dart';
 
 class DetailsPage extends StatelessWidget {
   final Airplane airplane;
@@ -20,7 +19,6 @@ class DetailsPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('${airplane.modelo}'),
-        backgroundColor: primaryBlack,
       ),
       body: Center(
         child: Column(children: [
