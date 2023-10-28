@@ -3,6 +3,7 @@ import { UsuarioController } from "../controllers/usuarioController";
 import { aviaoController } from "../controllers/aviaoController";
 import { ObjectId } from "mongodb";
 import { PecaController } from "../controllers/pecaController";
+import { chamadoController } from "../controllers/chamadoController";
 import { PontoController } from "../controllers/pontoController";
 
 const router = express.Router();
@@ -90,6 +91,17 @@ router.get('/aviao/:id', aviaoController.show);
 router.put('/aviao/:id', aviaoController.update);
 
 router.delete('/aviao/:id', aviaoController.delete);
+
+// Rotas de chamados
+router.get('/chamado', chamadoController.index);
+
+router.post('/chamado', chamadoController.save);
+
+router.get('/chamado/:id', chamadoController.show);
+
+router.put('/chamado/:id', chamadoController.update);
+
+router.delete('/chamado/:id', chamadoController.delete);
 
 // Rotas de Peças
 router.post('/pecas/adicionar', async (request: express.Request, response: express.Response)=> {

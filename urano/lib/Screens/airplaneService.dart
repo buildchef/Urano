@@ -6,18 +6,36 @@ class Airplane {
   final String modelo;
   final List<dynamic> historicoManutencao;
   final String picture;
+  final String fabricante;
+  final int anoFabricacao;
+  final int capacidadePassageiros;
+  final String statusDisponibilidade;
+  final String localizacaoAtual;
+  final List<dynamic> historicoVoos;
 
   const Airplane(
       {required this.numeroSerie,
-      required this.historicoManutencao,
       required this.modelo,
+      required this.fabricante,
+      required this.anoFabricacao,
+      required this.capacidadePassageiros,
+      required this.historicoManutencao,
+      required this.statusDisponibilidade,
+      required this.localizacaoAtual,
+      required this.historicoVoos,
       required this.picture});
 
   factory Airplane.fromJson(Map<String, dynamic> json) {
     return Airplane(
         numeroSerie: json['numeroSerie'],
-        historicoManutencao: json['historicoManutencao'],
         modelo: json['modelo'],
+        fabricante: json['fabricante'],
+        anoFabricacao: json['anoFabricacao'],
+        capacidadePassageiros: json['capacidadePassageiros'],
+        historicoManutencao: json['historicoManutencao'],
+        statusDisponibilidade: json['statusDisponibilidade'],
+        localizacaoAtual: json['localizacaoAtual'],
+        historicoVoos: json['historicoVoos'],
         picture: json['picture']);
   }
 }

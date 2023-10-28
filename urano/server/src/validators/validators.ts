@@ -9,6 +9,7 @@ import { IInputTrocarStatusPeca } from "../models/interfaces/inputTrocarStatusPe
 import { IInputContarPecas } from "../models/interfaces/inputContarPecas";
 import { ClassePeca } from "../models/enums/classePeca";
 import { IInputAviao } from "../models/interfaces/inputAviao";
+import { IInputChamado } from "../models/interfaces/inputChamado";
 import { IInputRegistrarPonto } from "../models/interfaces/inputRegistrarPonto";
 import { StatusPonto } from "../models/enums/statusPonto";
 import { IQueryPonto } from "../models/interfaces/queryPonto";
@@ -204,4 +205,62 @@ function validarAviao(inputAviao: IInputAviao) {
   return bodySchema.validate(inputAviao);
 }
 
-export { validarAviao };
+// Validator de Chamados
+function validarChamado(inputChamado: IInputChamado){
+  const bodySchema = Joi.object<IInputChamado>({
+    titulo: Joi.string().required(),
+    descricao: Joi.string().required(),
+    dataCriacao: Joi.date().optional(),
+    dataAtualizacao: Joi.date().optional(),
+    status: Joi.string().valid('Backlog', 'Em Andamento', 'Concluído').required(),
+    prioridade: Joi.array().items(
+      Joi.object({
+        tipo: Joi.string().valid('Muito baixa', 'Baixa', 'Média', 'Alta', 'Muito alta').required(),
+      })
+    ).required(),
+    categoria: Joi.string().valid('Manutenção Preventiva', 'Manutenção Corretiva', 'Melhoria').required(),
+    solicitante: Joi.array().items(
+      Joi.object({
+        displayName: Joi.string().required(),
+        email: Joi.string().required(),
+        ativo: Joi.boolean().required(),
+        avatarUrl: Joi.string().required(),
+      })
+    ),
+    responsavel: Joi.array().items(
+      Joi.object({
+        displayName: Joi.string().required(),
+        email: Joi.string().required(),
+        ativo: Joi.boolean().required(),
+        avatarUrl: Joi.string().required(),
+      })
+    ),
+    estimativa: Joi.number().required(),
+    comentarios: Joi.array().items(
+      Joi.object({
+        comentario: Joi.array().items(
+          Joi.object({
+            id: Joi.number().required(),
+            autor: Joi.array().items(
+              Joi.object({
+                displayName: Joi.string().required(),
+                email: Joi.string().required(),
+                ativo: Joi.boolean().required(),
+                avatarUrl: Joi.string().required(),
+              })
+            ),
+            dataCriacao: Joi.date().optional(),
+            dataAtualizacao: Joi.date().optional(),
+            body: Joi.string().required(),
+          })
+        ),
+        maxResults: Joi.number().required(),
+        totalResults: Joi.number().required(),
+      })
+    ),
+  });
+
+  return bodySchema.validate(inputChamado);
+}
+
+export { validarAviao, validarChamado };
