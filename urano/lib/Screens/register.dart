@@ -10,11 +10,19 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       title: 'Urano',
       home: Scaffold(
-        body: Center(
-          child: Text('Register Page'),
+        appBar: AppBar(
+          title: const Text('Urano'),
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.chevron_left_outlined),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          ],
         ),
       ),
     );
