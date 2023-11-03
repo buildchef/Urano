@@ -3,5 +3,6 @@ export interface IInputAtualizarUsuario{
     nome?: string,
     telefone?: string,
     email?: string,
+    senha: string,
     cargo?: string,
 }

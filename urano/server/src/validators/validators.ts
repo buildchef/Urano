@@ -30,6 +30,7 @@ export class Validators {
     const bodySchema = Joi.object<IInputCriarUsuario>({
       nome: Joi.string().min(1).max(99).pattern(this.nomeRegex).required(),
       email: Joi.string().pattern(this.emailRegex).required(),
+      senha: Joi.string().required(),
       telefone: Joi.string().min(11).max(11).pattern(this.telefoneRegex).required(),
       cargo: Joi.string().min(1).max(50),
       cpf: Joi.string().min(11).max(11).required(),
@@ -55,6 +56,7 @@ export class Validators {
       nome: Joi.string().min(1).max(99).pattern(this.nomeRegex),
       telefone: Joi.string().min(11).max(11).pattern(this.telefoneRegex),
       email: Joi.string().pattern(this.emailRegex),
+      senha: Joi.string(),
       cargo: Joi.string().min(1).max(50),
     });
 

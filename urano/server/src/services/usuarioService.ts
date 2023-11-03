@@ -18,6 +18,7 @@ export class UsuarioService{
             const usuario: IUsuario = new Usuario({
                 nome: inputCriarUsuario.nome,
                 email: inputCriarUsuario.email,
+                senha: inputCriarUsuario.senha,
                 telefone: inputCriarUsuario.telefone,
                 cpf: inputCriarUsuario.cpf,
                 cargo: inputCriarUsuario.cargo || Cargos.ESTAGIARIO,
@@ -55,10 +56,11 @@ export class UsuarioService{
 
             if(buscaUsuarioDB.length > 0 && buscaUsuarioDB[0].status){
                 const usuarioMongo: IUsuario = buscaUsuarioDB[0]; 
-                usuarioMongo.nome = inputAtualizarUsuario.nome? inputAtualizarUsuario.nome: usuarioMongo.nome;
-                usuarioMongo.email = inputAtualizarUsuario.email? inputAtualizarUsuario.email: usuarioMongo.email;
-                usuarioMongo.telefone = inputAtualizarUsuario.telefone? inputAtualizarUsuario.telefone: usuarioMongo.telefone;
-                usuarioMongo.cargo = inputAtualizarUsuario.cargo? inputAtualizarUsuario.cargo: usuarioMongo.cargo;
+                usuarioMongo.nome = inputAtualizarUsuario.nome? inputAtualizarUsuario.nome : usuarioMongo.nome;
+                usuarioMongo.email = inputAtualizarUsuario.email? inputAtualizarUsuario.email : usuarioMongo.email;
+                usuarioMongo.senha = inputAtualizarUsuario.senha? inputAtualizarUsuario.senha : usuarioMongo.senha;
+                usuarioMongo.telefone = inputAtualizarUsuario.telefone? inputAtualizarUsuario.telefone : usuarioMongo.telefone;
+                usuarioMongo.cargo = inputAtualizarUsuario.cargo? inputAtualizarUsuario.cargo : usuarioMongo.cargo;
 
                 const usuarioAtualizado = await usuarioMongo.save();
                 return usuarioAtualizado;
