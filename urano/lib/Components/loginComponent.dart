@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class LoginComponent extends StatefulWidget {
+  const LoginComponent({super.key});
+
   @override
   State<LoginComponent> createState() => _LoginComponentState();
 }
@@ -9,6 +11,7 @@ class LoginComponent extends StatefulWidget {
 class _LoginComponentState extends State<LoginComponent> {
   bool isChecked = false;
   final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -18,33 +21,41 @@ class _LoginComponentState extends State<LoginComponent> {
         child: Container(
           width: double.infinity,
           height: double.infinity,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(27),
-            color: const Color(0xFF171717),
+          decoration: const BoxDecoration(
+            borderRadius: BorderRadius.only(
+                bottomLeft: Radius.zero,
+                bottomRight: Radius.zero,
+                topLeft: Radius.circular(27),
+                topRight: Radius.circular(27)),
+            color: Color(0xFF171717),
           ),
           child: Stack(
             children: [
               Container(
-                padding: const EdgeInsets.only(left: 45),
+                alignment: Alignment.center,
                 child: ListView(children: [
                   Column(
                     children: [
-                      const SizedBox(height: 20),
-                      Row(
-                        children: [
-                          Text(
-                            'Entrar',
+                      //const SizedBox(height: 20),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 47),
+                          child: Text(
+                            'Entre',
                             style: GoogleFonts.montserrat(
                               fontSize: 30,
                               fontWeight: FontWeight.w500,
                               color: Colors.white,
                             ),
                           ),
-                        ],
+                        ),
                       ),
-                      Row(
-                        children: [
-                          Text(
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 47),
+                          child: Text(
                             'para continuar usando o Urano',
                             style: GoogleFonts.montserrat(
                               fontSize: 15,
@@ -52,10 +63,11 @@ class _LoginComponentState extends State<LoginComponent> {
                               color: Colors.white,
                             ),
                           ),
-                        ],
+                        ),
                       ),
                       const SizedBox(height: 15),
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Container(
                             width: 300,
@@ -66,6 +78,9 @@ class _LoginComponentState extends State<LoginComponent> {
                             ),
                             child: TextField(
                               controller: _emailController,
+                              style: const TextStyle(
+                                color: Colors.white,
+                              ),
                               decoration: const InputDecoration(
                                 hintText: 'Insira seu Email institucional',
                                 hintStyle: TextStyle(
@@ -84,6 +99,7 @@ class _LoginComponentState extends State<LoginComponent> {
                       ),
                       const SizedBox(height: 10),
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Container(
                             width: 300,
@@ -93,7 +109,12 @@ class _LoginComponentState extends State<LoginComponent> {
                               color: const Color(0xFF282828),
                             ),
                             child: TextField(
-                              controller: _emailController,
+                              style: const TextStyle(
+                                color: Colors.white,
+                              ),
+                              controller: _passwordController,
+                              obscureText: true,
+                              autocorrect: false,
                               decoration: const InputDecoration(
                                 hintText: 'Insira sua senha',
                                 hintStyle: TextStyle(
@@ -112,34 +133,43 @@ class _LoginComponentState extends State<LoginComponent> {
                       ),
                       const SizedBox(height: 5),
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Transform.scale(
-                            scale: 0.8,
+                            scale: 1,
                             child: Checkbox(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                              checkColor: Colors.white,
-                              fillColor:
-                                  MaterialStateProperty.all(Color(0xFF282828)),
-                              value: isChecked,
-                              onChanged: (bool? value) {
-                                setState(() {
-                                  isChecked = value!;
-                                });
-                              },
-                            ),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                checkColor: Colors.white,
+                                fillColor: MaterialStateProperty.all(
+                                    Color(0xFF282828)),
+                                value: isChecked,
+                                onChanged: (bool? value) {
+                                  setState(() {
+                                    isChecked = value!;
+                                  });
+                                },
+                                visualDensity: VisualDensity.compact),
                           ),
                           Text('Lembrar meu Email',
                               style: GoogleFonts.montserrat(
-                                fontSize: 12,
+                                fontSize: 13,
                                 fontWeight: FontWeight.w300,
                                 color: Colors.white,
-                              ))
+                              )),
+                          const SizedBox(width: 10),
+                          Text('Esqueci minha senha',
+                              style: GoogleFonts.montserrat(
+                                fontSize: 10,
+                                fontWeight: FontWeight.w300,
+                                color: Colors.white,
+                              )),
                         ],
                       ),
                       const SizedBox(height: 10),
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           ElevatedButton(
                               onPressed: () => Navigator.of(context)
@@ -166,6 +196,60 @@ class _LoginComponentState extends State<LoginComponent> {
                               )),
                         ],
                       ),
+                      const SizedBox(height: 5),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          GestureDetector(
+                            onTap: () => print('Registrar conta'),
+                            child: Text('Registrar conta',
+                                style: GoogleFonts.montserrat(
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.w500,
+                                    color: const Color(0xFFDADADA),
+                                    decoration: TextDecoration.underline)),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 60),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Tendo algum problema? ',
+                            style: GoogleFonts.montserrat(
+                              fontSize: 11,
+                              fontWeight: FontWeight.w300,
+                              color: Colors.white,
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: () => print('Contate o suporte'),
+                            child: Text(
+                              'Contate o Suporte',
+                              style: GoogleFonts.montserrat(
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.white,
+                                  decoration: TextDecoration.underline),
+                            ),
+                          )
+                        ],
+                      ),
+                      const SizedBox(height: 10),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Termos de Privacidade',
+                            style: GoogleFonts.montserrat(
+                              fontSize: 11,
+                              fontWeight: FontWeight.w300,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
+                      )
                     ],
                   ),
                 ]),
