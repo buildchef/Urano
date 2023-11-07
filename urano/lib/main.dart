@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:urano/Screens/homePage.dart';
 import 'package:urano/Screens/loginPage.dart';
+import 'package:urano/Screens/registerPage.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,6 +17,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => const LoginPageWidget(),
         '/homePage': (context) => const HomePage(),
+        '/register': (context) => const RegisterPageWidget(),
       },
     );
   }
