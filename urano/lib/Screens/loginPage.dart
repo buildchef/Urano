@@ -560,17 +560,20 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                     child: Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           0, 10, 0, 0),
-                                      child: Text(
-                                        'Registrar conta',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Montserrat',
-                                              color: Color(0x4DFFFFFF),
-                                              fontWeight: FontWeight.w600,
-                                              decoration:
-                                                  TextDecoration.underline,
-                                            ),
+                                      child: GestureDetector(
+                                        onTap: () => Navigator.pushNamed(context, '/register'),
+                                        child: Text(
+                                          'Registrar conta',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Montserrat',
+                                                color: Color(0x4DFFFFFF),
+                                                fontWeight: FontWeight.w600,
+                                                decoration:
+                                                    TextDecoration.underline,
+                                              ),
+                                        ),
                                       ),
                                     ),
                                   ),
