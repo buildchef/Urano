@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:urano/Screens/airplaneService.dart';
+import 'package:urano/Services/airplaneService.dart';
 
 class DetailsPage extends StatelessWidget {
   final Airplane airplane;

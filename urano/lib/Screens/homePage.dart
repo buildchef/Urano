@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:urano/Screens/detailsPage.dart';
-import 'package:urano/Screens/airplaneService.dart';
+import 'package:urano/Services/airplaneService.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
