@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 
 const chamadoSchema = new mongoose.Schema({
     titulo: String,
+    codigo: String,
     descricao: String,
     dataCriacao: {
         type: Date,

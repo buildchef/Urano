@@ -22,6 +22,7 @@ interface IComentario {
 
 export interface IInputChamado {
     titulo: string;
+    codigo: string;
     descricao: string;
     dataCriacao: Date;
     dataAtualizacao: Date;

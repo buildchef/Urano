@@ -212,6 +212,7 @@ function validarAviao(inputAviao: IInputAviao) {
 function validarChamado(inputChamado: IInputChamado){
   const bodySchema = Joi.object<IInputChamado>({
     titulo: Joi.string().required(),
+    codigo: Joi.string().required(),
     descricao: Joi.string().required(),
     dataCriacao: Joi.date().optional(),
     dataAtualizacao: Joi.date().optional(),
