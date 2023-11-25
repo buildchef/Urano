@@ -217,51 +217,10 @@ function validarChamado(inputChamado: IInputChamado){
     dataCriacao: Joi.date().optional(),
     dataAtualizacao: Joi.date().optional(),
     status: Joi.string().valid('Backlog', 'Em Andamento', 'Concluído').required(),
-    prioridade: Joi.array().items(
-      Joi.object({
-        tipo: Joi.string().valid('Muito baixa', 'Baixa', 'Média', 'Alta', 'Muito alta').required(),
-      })
-    ).required(),
+    prioridade: Joi.string().valid('Muito baixa', 'Baixa', 'Média', 'Alta', 'Muito alta').required(),
     categoria: Joi.string().valid('Manutenção Preventiva', 'Manutenção Corretiva', 'Melhoria').required(),
-    solicitante: Joi.array().items(
-      Joi.object({
-        displayName: Joi.string().required(),
-        email: Joi.string().required(),
-        ativo: Joi.boolean().required(),
-        avatarUrl: Joi.string().required(),
-      })
-    ),
-    responsavel: Joi.array().items(
-      Joi.object({
-        displayName: Joi.string().required(),
-        email: Joi.string().required(),
-        ativo: Joi.boolean().required(),
-        avatarUrl: Joi.string().required(),
-      })
-    ),
-    estimativa: Joi.number().required(),
-    comentarios: Joi.array().items(
-      Joi.object({
-        comentario: Joi.array().items(
-          Joi.object({
-            id: Joi.number().required(),
-            autor: Joi.array().items(
-              Joi.object({
-                displayName: Joi.string().required(),
-                email: Joi.string().required(),
-                ativo: Joi.boolean().required(),
-                avatarUrl: Joi.string().required(),
-              })
-            ),
-            dataCriacao: Joi.date().optional(),
-            dataAtualizacao: Joi.date().optional(),
-            body: Joi.string().required(),
-          })
-        ),
-        maxResults: Joi.number().required(),
-        totalResults: Joi.number().required(),
-      })
-    ),
+    solicitante: Joi.string().required(),
+    responsavel: Joi.string().required()
   });
 
   return bodySchema.validate(inputChamado);

@@ -27,9 +27,7 @@ export const chamadoController = {
             prioridade,
             categoria,
             solicitante,
-            responsavel,
-            estimativa,
-            comentarios
+            responsavel
         } = req.body
 
         try {
@@ -44,8 +42,6 @@ export const chamadoController = {
                 categoria,
                 solicitante,
                 responsavel,
-                estimativa,
-                comentarios
             }
 
             const chamado = validarChamado(chamadoData);
@@ -87,8 +83,6 @@ export const chamadoController = {
             categoria,
             solicitante,
             responsavel,
-            estimativa,
-            comentarios
         } = req.body
 
         try {
@@ -103,8 +97,6 @@ export const chamadoController = {
                 categoria,
                 solicitante,
                 responsavel,
-                estimativa,
-                comentarios
             }
 
             const chamado = validarChamado(chamadoData);

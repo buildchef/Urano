@@ -5,6 +5,7 @@ import { ObjectId } from "mongodb";
 import { PecaController } from "../controllers/pecaController";
 import { chamadoController } from "../controllers/chamadoController";
 import { PontoController } from "../controllers/pontoController";
+import Chamado from "../models/chamadoModel";
 
 const router = express.Router();
 const usuarioController: UsuarioController = new UsuarioController();
@@ -102,6 +103,35 @@ router.get('/chamado/:id', chamadoController.show);
 router.put('/chamado/:id', chamadoController.update);
 
 router.delete('/chamado/:id', chamadoController.delete);
+
+router.get('/manutencao/filtrar',  async (request: express.Request, response: express.Response)=> {
+    try{
+        console.log("Chegou aqui");
+
+        const{
+            titulo,
+            codigo,
+            status,
+            prioridade,
+            categoria,
+            responsavel
+        } = request.headers
+
+        let body = {};
+
+        if (titulo && !Array.isArray(titulo)) body = {...body, titulo: titulo};
+        if(codigo && !Array.isArray(codigo)) body = {...body, codigo: codigo};
+        if(status && !Array.isArray(status)) body = {...body, status: status};
+        if(prioridade && !Array.isArray(prioridade)) body = {...body, prioridade: prioridade};
+        if(categoria && !Array.isArray(categoria)) body = {...body, categoria: categoria};
+        if(responsavel && !Array.isArray(responsavel)) body = {...body, responsavel: responsavel};
+
+        const resultado = await Chamado.find(body);
+        response.status(200).json(resultado);
+    }catch(error){
+        response.json({error: error.message}).status(400);
+    }
+});
 
 // Rotas de Peças
 router.post('/pecas/adicionar', async (request: express.Request, response: express.Response)=> {
