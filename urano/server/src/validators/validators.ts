@@ -20,7 +20,7 @@ export class Validators {
   //Validators de Usuários
   emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   telefoneRegex = /^[0-9]+$/;
-  nomeRegex = /^[A-Za-z]+$/;
+  nomeRegex = /^[A-Za-z ]+$/;
   enumValidoClassePeca = Object.keys(ClassePeca);
   enumValidoStatusPonto = Object.keys(StatusPonto);
   enumValidoMarcadorPonto = Object.keys(Marcador);
@@ -42,6 +42,7 @@ export class Validators {
   public validarQuery(query: IQuery) {
     const bodySchema = Joi.object<IQuery>({
       id: Joi.string().min(24).max(24),
+      chave: Joi.string().min(6).max(6),
       cpf: Joi.string().min(11).max(11),
       email: Joi.string().pattern(this.emailRegex),
       cargo: Joi.string().min(1).max(50)

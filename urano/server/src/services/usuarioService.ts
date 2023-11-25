@@ -9,14 +9,30 @@ import { Validators } from "../validators/validators";
 export class UsuarioService{
     validator = new Validators();
 
+    public generateRandomNumericString(): string {
+        let result = '';
+        const characters = '0123456789';
+        const length = 5;
+      
+        for (let i = 0; i < length; i++) {
+          const randomIndex = Math.floor(Math.random() * characters.length);
+          result += characters.charAt(randomIndex);
+        }
+      
+        return result;
+      }
+
     public async criar(inputCriarUsuario: IInputCriarUsuario): Promise<IUsuario>{
         const { error, value } = this.validator.validarInputCriarUsuario(inputCriarUsuario);
         const validaCpf = this.validator.validarCpf(inputCriarUsuario.cpf);
         const usuarioDb = await this.buscar({cpf: inputCriarUsuario.cpf});
 
+        console.log("error =>", error);
+
         if(!error && validaCpf && usuarioDb.length === 0){
             const usuario: IUsuario = new Usuario({
                 nome: inputCriarUsuario.nome,
+                chave: `U${this.generateRandomNumericString()}`,
                 email: inputCriarUsuario.email,
                 senha: inputCriarUsuario.senha,
                 telefone: inputCriarUsuario.telefone,
