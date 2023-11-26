@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import Chamado from "../models/chamadoModel";
 import { validarChamado } from "../validators/validators";
+import { generateRandomNumericString } from "../utils/utils";
 
 export const chamadoController = {
     // GET /chamado
@@ -26,14 +27,13 @@ export const chamadoController = {
             prioridade,
             categoria,
             solicitante,
-            responsavel,
-            estimativa,
-            comentarios
+            responsavel
         } = req.body
 
         try {
             const chamadoData = {
                 titulo,
+                codigo: generateRandomNumericString(),
                 descricao,
                 dataCriacao,
                 dataAtualizacao,
@@ -42,8 +42,6 @@ export const chamadoController = {
                 categoria,
                 solicitante,
                 responsavel,
-                estimativa,
-                comentarios
             }
 
             const chamado = validarChamado(chamadoData);
@@ -76,6 +74,7 @@ export const chamadoController = {
         const { id } = req.params;
         const {
             titulo,
+            codigo,
             descricao,
             dataCriacao,
             dataAtualizacao = new Date(),
@@ -84,13 +83,12 @@ export const chamadoController = {
             categoria,
             solicitante,
             responsavel,
-            estimativa,
-            comentarios
         } = req.body
 
         try {
             const chamadoData = {
                 titulo,
+                codigo,
                 descricao,
                 dataCriacao,
                 dataAtualizacao,
@@ -99,8 +97,6 @@ export const chamadoController = {
                 categoria,
                 solicitante,
                 responsavel,
-                estimativa,
-                comentarios
             }
 
             const chamado = validarChamado(chamadoData);

@@ -20,7 +20,7 @@ export class Validators {
   //Validators de Usuários
   emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   telefoneRegex = /^[0-9]+$/;
-  nomeRegex = /^[A-Za-z]+$/;
+  nomeRegex = /^[A-Za-z ]+$/;
   enumValidoClassePeca = Object.keys(ClassePeca);
   enumValidoStatusPonto = Object.keys(StatusPonto);
   enumValidoMarcadorPonto = Object.keys(Marcador);
@@ -42,6 +42,7 @@ export class Validators {
   public validarQuery(query: IQuery) {
     const bodySchema = Joi.object<IQuery>({
       id: Joi.string().min(24).max(24),
+      chave: Joi.string().min(6).max(6),
       cpf: Joi.string().min(11).max(11),
       email: Joi.string().pattern(this.emailRegex),
       cargo: Joi.string().min(1).max(50)
@@ -211,55 +212,15 @@ function validarAviao(inputAviao: IInputAviao) {
 function validarChamado(inputChamado: IInputChamado){
   const bodySchema = Joi.object<IInputChamado>({
     titulo: Joi.string().required(),
+    codigo: Joi.string().required(),
     descricao: Joi.string().required(),
     dataCriacao: Joi.date().optional(),
     dataAtualizacao: Joi.date().optional(),
     status: Joi.string().valid('Backlog', 'Em Andamento', 'Concluído').required(),
-    prioridade: Joi.array().items(
-      Joi.object({
-        tipo: Joi.string().valid('Muito baixa', 'Baixa', 'Média', 'Alta', 'Muito alta').required(),
-      })
-    ).required(),
+    prioridade: Joi.string().valid('Muito baixa', 'Baixa', 'Média', 'Alta', 'Muito alta').required(),
     categoria: Joi.string().valid('Manutenção Preventiva', 'Manutenção Corretiva', 'Melhoria').required(),
-    solicitante: Joi.array().items(
-      Joi.object({
-        displayName: Joi.string().required(),
-        email: Joi.string().required(),
-        ativo: Joi.boolean().required(),
-        avatarUrl: Joi.string().required(),
-      })
-    ),
-    responsavel: Joi.array().items(
-      Joi.object({
-        displayName: Joi.string().required(),
-        email: Joi.string().required(),
-        ativo: Joi.boolean().required(),
-        avatarUrl: Joi.string().required(),
-      })
-    ),
-    estimativa: Joi.number().required(),
-    comentarios: Joi.array().items(
-      Joi.object({
-        comentario: Joi.array().items(
-          Joi.object({
-            id: Joi.number().required(),
-            autor: Joi.array().items(
-              Joi.object({
-                displayName: Joi.string().required(),
-                email: Joi.string().required(),
-                ativo: Joi.boolean().required(),
-                avatarUrl: Joi.string().required(),
-              })
-            ),
-            dataCriacao: Joi.date().optional(),
-            dataAtualizacao: Joi.date().optional(),
-            body: Joi.string().required(),
-          })
-        ),
-        maxResults: Joi.number().required(),
-        totalResults: Joi.number().required(),
-      })
-    ),
+    solicitante: Joi.string().required(),
+    responsavel: Joi.string().required()
   });
 
   return bodySchema.validate(inputChamado);

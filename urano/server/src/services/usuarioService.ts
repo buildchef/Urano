@@ -5,6 +5,7 @@ import Usuario, { IUsuario } from "../models/usuarioModel";
 import { IInputAtualizarUsuario } from "../models/interfaces/inputAtualizarUsuario";
 import { IInputAlterarStatusUsuario } from "../models/interfaces/inputAlterarStatusUsuario";
 import { Validators } from "../validators/validators";
+import { generateRandomNumericString } from "../utils/utils";
 
 export class UsuarioService{
     validator = new Validators();
@@ -14,9 +15,11 @@ export class UsuarioService{
         const validaCpf = this.validator.validarCpf(inputCriarUsuario.cpf);
         const usuarioDb = await this.buscar({cpf: inputCriarUsuario.cpf});
 
+
         if(!error && validaCpf && usuarioDb.length === 0){
             const usuario: IUsuario = new Usuario({
                 nome: inputCriarUsuario.nome,
+                chave: `U${generateRandomNumericString()}`,
                 email: inputCriarUsuario.email,
                 senha: inputCriarUsuario.senha,
                 telefone: inputCriarUsuario.telefone,

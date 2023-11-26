@@ -4,6 +4,7 @@ import { Cargos } from "../models/enums/cargos";
 export interface IUsuario extends Document{
     _doc: any,
     nome : string,
+    chave: string,
     email: string,
     senha: string,
     telefone: string,
@@ -14,6 +15,7 @@ export interface IUsuario extends Document{
 
 const UsuarioSchema = new Schema<IUsuario>({
     nome: { type: String, required: true },
+    chave: { type: String, required: true },
     email: { type: String, required: true },
     senha: { type: String, required: true},
     telefone: { type: String, required: false},
