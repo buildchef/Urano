@@ -1,3 +1,5 @@
+import 'package:urano/Services/auth_service.dart';
+
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -5,8 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../Models/loginPageModel.dart';
-export '../Models/loginPageModel.dart';
+import '../Models/login_page_model.dart';
+export '../Models/login_page_model.dart';
 
 class LoginPageWidget extends StatefulWidget {
   const LoginPageWidget({Key? key}) : super(key: key);
@@ -17,6 +19,7 @@ class LoginPageWidget extends StatefulWidget {
 
 class _LoginPageWidgetState extends State<LoginPageWidget> {
   late LoginPageModel _model;
+  final AuthService authService = AuthService();
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -39,6 +42,15 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
     super.dispose();
   }
 
+  void loginUser() {
+
+    authService.signInUser(
+      context: context,
+      email: _model.textController1.text,
+      senha: _model.textController2.text,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     if (isiOS) {
@@ -51,9 +63,6 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
     }
 
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
       child: WillPopScope(
         onWillPop: () async => false,
         child: Scaffold(
@@ -304,8 +313,6 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                             8, 0, 8, 0),
                                         child: TextFormField(
                                           controller: _model.textController1,
-                                          focusNode: _model.textFieldFocusNode1,
-                                          autofocus: true,
                                           obscureText: false,
                                           decoration: InputDecoration(
                                             labelText: 'Email institucional',
@@ -389,8 +396,6 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                             8, 0, 8, 0),
                                         child: TextFormField(
                                           controller: _model.textController2,
-                                          focusNode: _model.textFieldFocusNode2,
-                                          autofocus: true,
                                           obscureText:
                                               !_model.passwordVisibility,
                                           decoration: InputDecoration(
@@ -451,8 +456,6 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                                         .passwordVisibility =
                                                     !_model.passwordVisibility,
                                               ),
-                                              focusNode: FocusNode(
-                                                  skipTraversal: true),
                                               child: Icon(
                                                 _model.passwordVisibility
                                                     ? Icons.visibility_outlined
@@ -528,7 +531,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                   ),
                                   FFButtonWidget(
                                     onPressed: () {
-                                      Navigator.pushNamed(context, '/homePage');
+                                      loginUser();
                                     },
                                     text: 'Continuar',
                                     options: FFButtonOptions(
@@ -561,7 +564,8 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           0, 10, 0, 0),
                                       child: GestureDetector(
-                                        onTap: () => Navigator.pushNamed(context, '/register'),
+                                        onTap: () => Navigator.pushNamed(
+                                            context, '/register'),
                                         child: Text(
                                           'Registrar conta',
                                           style: FlutterFlowTheme.of(context)

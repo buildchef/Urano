@@ -10,9 +10,9 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.use('/urano/api', router);
+app.use('/api', router);
 
 app.listen(environment.app.port, async ()=> {
-    console.log(`Api rodando na porta => ${environment.app.port}`);
+    console.log(`Servidor rodando na porta ${environment.app.port}`);
     await Database.conectar();
 });

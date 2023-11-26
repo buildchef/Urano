@@ -1,3 +1,4 @@
+import 'package:urano/Services/auth_service.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -6,8 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../Models/registerPageModel.dart';
-export '../Models/registerPageModel.dart';
+import '../Models/register_page_model.dart';
+export '../Models/register_page_model.dart';
 
 class RegisterPageWidget extends StatefulWidget {
   const RegisterPageWidget({Key? key}) : super(key: key);
@@ -19,21 +20,29 @@ class RegisterPageWidget extends StatefulWidget {
 class _RegisterPageWidgetState extends State<RegisterPageWidget> {
   late RegisterPageModel _model;
 
+  final AuthService authService = AuthService();
+
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
     _model = createModel(context, () => RegisterPageModel());
+    _model.nameController ??= TextEditingController();
+    _model.emailController ??= TextEditingController();
+    _model.passwordController ??= TextEditingController();
+    _model.passwordController2 ??= TextEditingController();
+  }
 
-    _model.textController1 ??= TextEditingController();
-    _model.textFieldFocusNode1 ??= FocusNode();
+  void signUpUser() {
+    authService.signUpUser(
+      context: context,
+      nome: _model.nameController!.text,
+      email: _model.emailController!.text,
+      senha: _model.passwordController!.text,
+    );
 
-    _model.textController2 ??= TextEditingController();
-    _model.textFieldFocusNode2 ??= FocusNode();
-
-    _model.textController3 ??= TextEditingController();
-    _model.textFieldFocusNode3 ??= FocusNode();
+    Navigator.pushNamed(context, '/');
   }
 
   @override
@@ -79,7 +88,6 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                       alignment: AlignmentDirectional(-1.00, 0.00),
                       child: FlutterFlowIconButton(
                         borderColor: Color(0x00171717),
-                        borderRadius: 20,
                         borderWidth: 0,
                         fillColor: Color(0xFF171717),
                         icon: Icon(
@@ -87,7 +95,7 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                           color: Colors.white,
                           size: 32,
                         ),
-                        onPressed: () {
+                        onPressed: () async {
                           Navigator.pushNamed(context, '/');
                         },
                       ),
@@ -99,7 +107,7 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                 alignment: AlignmentDirectional(0.00, 0.00),
                 child: Container(
                   width: 300,
-                  height: 450,
+                  height: 470,
                   decoration: BoxDecoration(
                     color: Color(0x00FFFFFF),
                     border: Border.all(
@@ -158,8 +166,76 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                               padding:
                                   EdgeInsetsDirectional.fromSTEB(8, 0, 8, 0),
                               child: TextFormField(
-                                controller: _model.textController1,
-                                focusNode: _model.textFieldFocusNode1,
+                                  controller: _model.nameController,
+                                  obscureText: false,
+                                  decoration: InputDecoration(
+                                    labelText: 'Nome',
+                                    labelStyle: FlutterFlowTheme.of(context)
+                                        .labelMedium
+                                        .override(
+                                          fontFamily: 'Montserrat',
+                                          color: Color(0x27FFFFFF),
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                    hintText: 'Insira seu nome',
+                                    hintStyle: FlutterFlowTheme.of(context)
+                                        .labelMedium
+                                        .override(
+                                          fontFamily: 'Montserrat',
+                                          color: Color(0x67FFFFFF),
+                                        ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Color(0x00E0E3E7),
+                                        width: 1,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Color(0x004B39EF),
+                                        width: 1,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    errorBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Color(0x00FF5963),
+                                        width: 1,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    focusedErrorBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Color(0x00FF5963),
+                                        width: 1,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                  ),
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Montserrat',
+                                        fontWeight: FontWeight.w500,
+                                      )),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                          child: Container(
+                            width: 300,
+                            height: 50,
+                            decoration: BoxDecoration(
+                              color: Color(0xFF282828),
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(8, 0, 8, 0),
+                              child: TextFormField(
+                                controller: _model.emailController,
                                 autofocus: true,
                                 obscureText: false,
                                 decoration: InputDecoration(
@@ -213,8 +289,6 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                       fontFamily: 'Montserrat',
                                       fontWeight: FontWeight.w500,
                                     ),
-                                validator: _model.textController1Validator
-                                    .asValidator(context),
                               ),
                             ),
                           ),
@@ -232,8 +306,7 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                               padding:
                                   EdgeInsetsDirectional.fromSTEB(8, 0, 8, 0),
                               child: TextFormField(
-                                controller: _model.textController2,
-                                focusNode: _model.textFieldFocusNode2,
+                                controller: _model.passwordController,
                                 autofocus: true,
                                 obscureText: !_model.passwordVisibility1,
                                 decoration: InputDecoration(
@@ -285,7 +358,6 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                       () => _model.passwordVisibility1 =
                                           !_model.passwordVisibility1,
                                     ),
-                                    focusNode: FocusNode(skipTraversal: true),
                                     child: Icon(
                                       _model.passwordVisibility1
                                           ? Icons.visibility_outlined
@@ -301,8 +373,6 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                       fontFamily: 'Montserrat',
                                       fontWeight: FontWeight.w500,
                                     ),
-                                validator: _model.textController2Validator
-                                    .asValidator(context),
                               ),
                             ),
                           ),
@@ -320,8 +390,7 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                               padding:
                                   EdgeInsetsDirectional.fromSTEB(8, 0, 8, 0),
                               child: TextFormField(
-                                controller: _model.textController3,
-                                focusNode: _model.textFieldFocusNode3,
+                                controller: _model.passwordController2,
                                 autofocus: true,
                                 obscureText: !_model.passwordVisibility2,
                                 decoration: InputDecoration(
@@ -373,7 +442,6 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                       () => _model.passwordVisibility2 =
                                           !_model.passwordVisibility2,
                                     ),
-                                    focusNode: FocusNode(skipTraversal: true),
                                     child: Icon(
                                       _model.passwordVisibility2
                                           ? Icons.visibility_outlined
@@ -389,8 +457,6 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                       fontFamily: 'Montserrat',
                                       fontWeight: FontWeight.w500,
                                     ),
-                                validator: _model.textController3Validator
-                                    .asValidator(context),
                               ),
                             ),
                           ),
@@ -399,7 +465,7 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                           padding: EdgeInsetsDirectional.fromSTEB(0, 80, 0, 0),
                           child: FFButtonWidget(
                             onPressed: () {
-                              print('Button pressed ...');
+                              signUpUser();
                             },
                             text: 'Continuar',
                             options: FFButtonOptions(
