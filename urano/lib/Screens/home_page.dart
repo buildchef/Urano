@@ -64,7 +64,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
               children: [
                 Container(
                   width: double.infinity,
-                  height: 120,
+                  height: 140,
                   decoration: BoxDecoration(
                     color: Color(0xFF171717),
                     borderRadius: BorderRadius.only(
@@ -74,59 +74,48 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       topRight: Radius.circular(0),
                     ),
                   ),
-                  child: Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(25, 0, 25, 0),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Align(
-                          alignment: AlignmentDirectional(0.00, 1.00),
-                          child: Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(0, 0, 0, 30),
-                            child: Text(
-                              'Olá, ${user.nome}',
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Montserrat',
-                                    color: Colors.white,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: Align(
+                  child: Align(
+                    alignment: AlignmentDirectional(0.00, 0.00),
+                    child: Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(25, 0, 25, 0),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Align(
                             alignment: AlignmentDirectional(0.00, -1.00),
-                            child: Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(80, 10, 0, 0),
-                              child: FlutterFlowIconButton(
-                                borderColor: Color(0x004B39EF),
-                                borderRadius: 20,
-                                borderWidth: 1,
-                                buttonSize: 40,
-                                fillColor: Color(0x004B39EF),
-                                icon: Icon(
-                                  Icons.settings,
-                                  color: Colors.white,
-                                  size: 19,
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Align(
+                                  alignment: AlignmentDirectional(0.00, 0.00),
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0, 0, 0, 30),
+                                    child: Text(
+                                      'Olá, ${user.nome}',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Montserrat',
+                                            color: Colors.white,
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                    ),
+                                  ),
                                 ),
-                                onPressed: () {
-                                  print('IconButton pressed ...');
-                                },
-                              ),
+                              ],
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),
-                SizedBox(height: 120),
                 Align(
                   alignment: AlignmentDirectional(0.00, 0.00),
                   child: ClipRRect(
@@ -141,7 +130,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         ),
                       ),
                       child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(25, 140, 25, 0),
+                        padding: EdgeInsetsDirectional.fromSTEB(25, 160, 25, 0),
                         child: SingleChildScrollView(
                           child: Column(
                             mainAxisSize: MainAxisSize.max,
@@ -511,6 +500,75 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                       children: [
                                                         Text(
                                                           'Materiais',
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Montserrat',
+                                                                color: Colors
+                                                                    .white,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
+                                                              ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(0, 10, 0, 0),
+                                              child: Container(
+                                                width: 164,
+                                                height: 150,
+                                                decoration: BoxDecoration(
+                                                  color: Color(0xFF171717),
+                                                  borderRadius:
+                                                      BorderRadius.circular(20),
+                                                ),
+                                                child: Column(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  children: [
+                                                    Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0, 15, 0, 0),
+                                                      child:
+                                                          FlutterFlowIconButton(
+                                                        borderColor:
+                                                            Color(0x004B39EF),
+                                                        borderRadius: 20,
+                                                        borderWidth: 1,
+                                                        buttonSize: 90,
+                                                        fillColor:
+                                                            Color(0x004B39EF),
+                                                        icon: FaIcon(
+                                                          Icons.settings,
+                                                          color: Colors.white,
+                                                          size: 72,
+                                                        ),
+                                                        onPressed: () {
+                                                          Navigator.pushNamed(
+                                                              context,
+                                                              '/config');
+                                                        },
+                                                      ),
+                                                    ),
+                                                    Row(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Text(
+                                                          'Configurações',
                                                           style: FlutterFlowTheme
                                                                   .of(context)
                                                               .bodyMedium
