@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:urano/Models/user_model.dart';
 import 'package:urano/Providers/user_provider.dart';
+import 'package:urano/Screens/login_page.dart';
 import 'package:urano/Utils/constants.dart';
 import 'package:urano/Utils/utils.dart';
 import 'package:http/http.dart' as http;
@@ -27,6 +28,9 @@ class AuthService {
         token: '',
       );
 
+      signOut(context);
+      getUserData(context);
+
       http.Response response = await http.post(
         Uri.parse('${Constants.API_URL}/api/user/signup'),
         body: user.toJson(),
@@ -34,6 +38,8 @@ class AuthService {
           'Content-Type': 'application/json; charset=UTF-8',
         },
       );
+
+      getUserData(context);
 
       httpErrorHandler(
         response: response,
@@ -46,7 +52,11 @@ class AuthService {
         },
       );
     } catch (e) {
-      showSnackBar(context, e.toString());
+      if (e.toString().contains('is not a subtype of')) {
+        showSnackBar(context, 'Email já cadastrado!');
+      } else {
+        showSnackBar(context, e.toString());
+      }
     }
   }
 
@@ -131,5 +141,15 @@ class AuthService {
     } catch (e) {
       showSnackBar(context, e.toString());
     }
+  }
+
+  void signOut(BuildContext context) async {
+    final navigator = Navigator.of(context);
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('x-auth-token', '');
+
+    navigator.pushAndRemoveUntil(
+        MaterialPageRoute(builder: (context) => const LoginPageWidget()),
+        (route) => false);
   }
 }
