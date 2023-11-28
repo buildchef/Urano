@@ -1,7 +1,7 @@
 import { StatusPonto } from "../enums/statusPonto";
 
 export interface IInputRegistrarPonto{
-    identificadorUnico : string,
+    chave: string,
     status: StatusPonto,
     justificativa?: string
 }

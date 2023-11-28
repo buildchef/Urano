@@ -12,6 +12,7 @@ import { hash, compare } from 'bcryptjs';
 
 import { authMiddleware } from '../middleware/auth';
 import Usuario from "../models/usuarioModel";
+import { generateRandomNumericString } from "../utils/utils";
 
 const router = express.Router();
 const usuarioController: UsuarioController = new UsuarioController();
@@ -50,8 +51,8 @@ router.get('/usuario/buscar', async (request: express.Request, response: express
         let body = {};
 
         if (cpf && !Array.isArray(cpf)) body = { ...body, cpf: cpf };
-        if (email && !Array.isArray(cpf)) body = { ...body, email: email };
-        if (_id && !Array.isArray(cpf)) body = { ...body, _id: new ObjectId(_id.toString()) };
+        if (email && !Array.isArray(email)) body = { ...body, email: email };
+        if (_id && !Array.isArray(_id)) body = { ...body, _id: new ObjectId(_id.toString()) };
         if (cargo && !Array.isArray(cargo)) body = { ...body, cargo: cargo };
 
         const resultado = await usuarioController.buscar(body);
@@ -271,6 +272,7 @@ router.post('/user/signup', async (req: express.Request, res: express.Response) 
         const usuario = await Usuario.create({
             nome,
             email,
+            chave: `U${generateRandomNumericString()}`,
             senha: hashedPassword,
         });
 

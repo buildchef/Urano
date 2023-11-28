@@ -17,29 +17,27 @@ export class PontoService {
         // @ts-ignore
         inputRegistrarPonto.status = this.formatarEntradaStatus(inputRegistrarPonto.status);
         const { error, value } = this.validator.validarInputRegistrarPonto(inputRegistrarPonto);
-        const validaCpf = this.validator.validarCpf(inputRegistrarPonto.identificadorUnico);
 
-
-        if(error && !validaCpf) {
+        if(error) {
             throw new Error('Erro na validacao. Os dados informados sao invalidos.');
         };
 
-        const usuarioEncontrado = await this.usuarioService.buscar({cpf: inputRegistrarPonto.identificadorUnico});
+        const usuarioEncontrado = await this.usuarioService.buscar({chave: inputRegistrarPonto.chave});
 
         if(usuarioEncontrado.length <= 0) {throw new Error("Erro na validacao. Os dados informados não possuem registro na base de dados.")};
-        
+                
         // @ts-ignore
         const status = StatusPonto[inputRegistrarPonto.status]
         const horario = this.obterHorarioAtualFormatado();
         const data = this.obterDataAtualFormatada();
-        const verificaPonto = await this.buscar({identificadorUnico: inputRegistrarPonto.identificadorUnico, data: data});
-
+        const verificaPonto = await this.buscar({identificadorUnico: inputRegistrarPonto.chave, data: data});
+        
         if(verificaPonto.length == 1  && verificaPonto[0].status == StatusPonto.DIA_UTIL){
             const entradaConvertida = this.converteStringParaHorasMinutos(verificaPonto[0].horario);
             const saidaConvertida = this.converteStringParaHorasMinutos(horario);
 
             const pontoMarcado = new Ponto({
-                identificadorUnico: inputRegistrarPonto.identificadorUnico,
+                identificadorUnico: inputRegistrarPonto.chave,
                 data: data,
                 horario: horario,
                 horasTrabalhadas: this.calculaHorasTrabalhadas(entradaConvertida, saidaConvertida),
@@ -47,11 +45,11 @@ export class PontoService {
                 justificativa: inputRegistrarPonto.justificativa ? inputRegistrarPonto.justificativa : Justificativa.SEM_JUSTIFICATIVA,
                 marcador: Marcador.SAIDA
             });
-
+            
             return await pontoMarcado.save();
         } else if(verificaPonto.length == 0 && status == StatusPonto.DIA_UTIL){
             const pontoMarcado = new Ponto({
-                identificadorUnico: inputRegistrarPonto.identificadorUnico,
+                identificadorUnico: inputRegistrarPonto.chave,
                 data: data,
                 horario: horario,
                 horasTrabalhadas: HorasTrabalhadas.ENTRADA,
@@ -59,11 +57,11 @@ export class PontoService {
                 justificativa: inputRegistrarPonto.justificativa ? inputRegistrarPonto.justificativa : Justificativa.SEM_JUSTIFICATIVA,
                 marcador: Marcador.ENTRADA
             });
-
+            
             return await pontoMarcado.save();
         } else if(verificaPonto.length == 0 && status !== StatusPonto.DIA_UTIL) {
             const pontoMarcado = new Ponto({
-                identificadorUnico: inputRegistrarPonto.identificadorUnico,
+                identificadorUnico: inputRegistrarPonto.chave,
                 data: data,
                 horario: horario,
                 horasTrabalhadas: HorasTrabalhadas.ABONO,
@@ -85,9 +83,8 @@ export class PontoService {
         if(query.marcador){query.marcador = query.marcador.toUpperCase()}
 
         const { error, value } = this.validator.validarQueryPonto(query);
-        const validaCpf = query.identificadorUnico? this.validator.validarCpf(query.identificadorUnico) : true;
 
-        if(error && !validaCpf) {
+        if(error) {
             throw new Error('Erro na validacao. Os dados informados sao invalidos.');
         };
 

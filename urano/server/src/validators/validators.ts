@@ -157,7 +157,7 @@ export class Validators {
   // Validators de Ponto
   public validarInputRegistrarPonto(inputRegistrarPonto: IInputRegistrarPonto) {
     const bodySchema = Joi.object<IInputRegistrarPonto>({
-      identificadorUnico: Joi.string().min(11).max(11).required(),
+      chave: Joi.string().required(),
       status: Joi.string().valid(...this.enumValidoStatusPonto).required(),
       justificativa: Joi.string()
     });
@@ -167,7 +167,7 @@ export class Validators {
 
   public validarQueryPonto(query: IQueryPonto) {
     const bodySchema = Joi.object<IQueryPonto>({
-      identificadorUnico: Joi.string().min(11).max(11),
+      identificadorUnico: Joi.string(),
       data: Joi.string(),
       status: Joi.string().valid(...this.enumValidoStatusPonto),
       marcador: Joi.string().valid(...this.enumValidoMarcadorPonto)
