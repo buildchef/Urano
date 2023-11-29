@@ -7,14 +7,16 @@ export interface IPeca extends Document{
     classe: ClassePeca | string,
     preco: string,
     status: boolean,
+    quantidade: string
 }
 
 const PecaSchema = new Schema<IPeca>({
     nome: { type: String, required: true },
     codigo: { type: String, required: true },
-    classe: { type: String, required: true},
-    preco: { type: String, required: true },
-    status: { type: Boolean, required: true },
+    classe: { type: String, required: false},
+    preco: { type: String, required: false },
+    status: { type: Boolean, required: false },
+    quantidade: { type: String, required: true }
 })
 
 const Peca = mongoose.model<IPeca>('Peca', PecaSchema, "peca");

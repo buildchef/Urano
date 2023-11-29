@@ -2,5 +2,6 @@ export interface IInputAdicionarPeca {
     nome:  string,
     codigo: string,
     classe: string,
-    preco: string
+    preco: string,
+    quantidade: string,
 }

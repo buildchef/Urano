@@ -17,20 +17,13 @@ export class PecaService {
     }
 
     public async adicionar(inputAdicionarPeca: IInputAdicionarPeca): Promise<IPeca> {
-        inputAdicionarPeca.classe = inputAdicionarPeca.classe.toUpperCase();
-        const { error, value } = this.validator.validarInputAdicionarPeca(inputAdicionarPeca);
-        const pecaVerificar = await this.buscar({ classe: inputAdicionarPeca.classe, codigo: inputAdicionarPeca.codigo});
-
-        if(error || pecaVerificar.length > 0){
-            throw new Error("Erro na validacao. Os dados informados sao invalidos.");
-        };
 
         // @ts-ignore
         const novaPeca: IPeca = new Peca({
             nome: inputAdicionarPeca.nome,
             codigo: inputAdicionarPeca.codigo,
             // @ts-ignore
-            classe: ClassePeca[inputAdicionarPeca.classe.toUpperCase()],
+            quantidade: inputAdicionarPeca.quantidade,
             preco: inputAdicionarPeca.preco,
             status: true
         });
