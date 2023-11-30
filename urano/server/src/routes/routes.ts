@@ -113,8 +113,6 @@ router.delete('/chamado/:id', chamadoController.delete);
 
 router.get('/manutencao/filtrar',  async (request: express.Request, response: express.Response)=> {
     try{
-        console.log("Chegou aqui");
-
         const{
             titulo,
             codigo,
@@ -135,6 +133,86 @@ router.get('/manutencao/filtrar',  async (request: express.Request, response: ex
 
         const resultado = await Chamado.find(body);
         response.status(200).json(resultado);
+    }catch(error){
+        response.json({error: error.message}).status(400);
+    }
+});
+
+router.put('/manutencao/retornar', async (request: express.Request, response: express.Response) => {
+    try{
+        const atualizar = await Chamado.findOneAndUpdate(
+            {codigo: request.body.codigo}, 
+            {$set: 
+                {
+                    responsavel: "Pendente",
+                    dataAtualizacao: new Date()
+                }
+            }
+        );
+
+        if(!atualizar) { return response.json({error: "Não foi possível atualizar o registro."}).status(400)};
+        response.json().status(200);
+    }catch(error){
+        response.json({error: error.message}).status(400);
+    }
+});
+
+router.put('/manutencao/concluir', async (request: express.Request, response: express.Response) => {
+    try{
+        const atualizar = await Chamado.findOneAndUpdate(
+            {codigo: request.body.codigo},
+            {$set: 
+                {
+                    status: "Pronto",
+                    dataAtualizacao: new Date()    
+                }
+
+            }
+        );
+
+        if(!atualizar) { return response.json({error: "Não foi possível atualizar o registro."}).status(400)};
+        response.json().status(200);  
+    }catch(error){
+        response.json({error: error.message}).status(400);
+    }
+})
+
+router.put('/manutencao/retomar', async (request: express.Request, response: express.Response) => {
+    try{
+        const atualizar = await Chamado.findOneAndUpdate(
+            {codigo: request.body.codigo},
+            {$set: 
+                {
+                    status: "Em andamento",
+                    dataAtualizacao: new Date()    
+                }
+
+            }
+        );
+
+        if(!atualizar) { return response.json({error: "Não foi possível atualizar o registro."}).status(400)};
+        response.json().status(200);  
+    }catch(error){
+        response.json({error: error.message}).status(400);
+    }
+});
+
+router.put('/manutencao/atribuir', async (request: express.Request, response: express.Response) => {
+    try{
+        const atualizar = await Chamado.findOneAndUpdate(
+            {codigo: request.body.codigo},
+            {$set: 
+                {   
+                    responsavel: request.body.responsavel,
+                    status: "Em Andamento",
+                    dataAtualizacao: new Date()    
+                }
+
+            }
+        );
+
+        if(!atualizar) { return response.json({error: "Não foi possível atualizar o registro."}).status(400)};
+        response.json().status(200);  
     }catch(error){
         response.json({error: error.message}).status(400);
     }

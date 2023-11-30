@@ -1,4 +1,3 @@
-import { ObjectId } from "mongodb";
 import mongoose from "mongoose";
 
 const chamadoSchema = new mongoose.Schema({
@@ -20,7 +19,7 @@ const chamadoSchema = new mongoose.Schema({
     },
     prioridade: {
         type: String,
-        enum: ['Muito baixa', 'Baixa', 'Média', 'Alta', 'Muito alta'],
+        enum: ['Baixa', 'Média', 'Alta'],
         required: true,
     },
     categoria: {    
