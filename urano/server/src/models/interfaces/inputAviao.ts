@@ -12,14 +12,14 @@ interface IHistoricoVoos {
 }
 
 export interface IInputAviao {
-    numeroSerie: string; 
-    modelo: string; 
-    fabricante: string; 
-    anoFabricacao: number; 
-    capacidadePassageiros: number; 
+    numeroSerie: string;
+    modelo: string;
+    fabricante: string;
+    anoFabricacao: number;
+    capacidadePassageiros: number;
     historicoManutencao: IHistoricoManutencao[];
-    statusDisponibilidade: any; 
-    localizacaoAtual: any; 
-    historicoVoos: IHistoricoVoos[]; 
-    picture: any; 
+    statusDisponibilidade: any;
+    localizacaoAtual: any;
+    historicoVoos: IHistoricoVoos[];
+    statusManutencao: string;
 }

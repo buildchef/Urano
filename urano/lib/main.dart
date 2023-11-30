@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:urano/Screens/add_ativos_page.dart';
+import 'package:urano/Screens/ativos_page.dart';
 import 'package:urano/Screens/config_page.dart';
 import 'package:urano/Screens/home_page.dart';
+import 'package:urano/Screens/inventario_page.dart';
 import 'package:urano/Screens/login_page.dart';
 import 'package:urano/Screens/maintenance_page.dart';
+import 'package:urano/Screens/material_page.dart';
 import 'package:urano/Screens/register_page.dart';
 import 'package:urano/Providers/user_provider.dart';
 import 'package:urano/Services/auth_service.dart';
@@ -48,6 +52,10 @@ class _MyAppState extends State<MyApp> {
         '/register': (context) => const RegisterPageWidget(),
         '/maintenancePage': (context) => const MaintenancePageWidget(),
         '/config': (context) => const ConfigPageWidget(),
+        '/material': (context) => const MateriaisPageWidget(),
+        '/inventario': (context) => const MateriaisListaPageWidget(),
+        '/ativos': (context) => const AtivosPageWidget(),
+        '/criarAtivos': (context) => const CriarAtivosPageWidget()
       },
     );
   }

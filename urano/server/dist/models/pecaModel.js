@@ -27,9 +27,10 @@ const mongoose_1 = __importStar(require("mongoose"));
 const PecaSchema = new mongoose_1.Schema({
     nome: { type: String, required: true },
     codigo: { type: String, required: true },
-    classe: { type: String, required: true },
-    preco: { type: String, required: true },
-    status: { type: Boolean, required: true },
+    classe: { type: String, required: false },
+    preco: { type: String, required: false },
+    status: { type: Boolean, required: false },
+    quantidade: { type: String, required: true }
 });
 const Peca = mongoose_1.default.model('Peca', PecaSchema, "peca");
 exports.default = Peca;

@@ -11,7 +11,7 @@ import '../Models/register_page_model.dart';
 export '../Models/register_page_model.dart';
 
 class RegisterPageWidget extends StatefulWidget {
-  const RegisterPageWidget({Key? key}) : super(key: key);
+  const RegisterPageWidget({super.key});
 
   @override
   _RegisterPageWidgetState createState() => _RegisterPageWidgetState();
@@ -34,15 +34,56 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
     _model.passwordController2 ??= TextEditingController();
   }
 
-  void signUpUser() {
-    authService.signUpUser(
-      context: context,
-      nome: _model.nameController!.text,
-      email: _model.emailController!.text,
-      senha: _model.passwordController!.text,
-    );
+  void checkPassword() {}
 
-    Navigator.pushNamed(context, '/');
+  void signUpUser() {
+    if (_model.nameController!.text.isEmpty ||
+        _model.emailController!.text.isEmpty ||
+        _model.passwordController!.text.isEmpty ||
+        _model.passwordController2!.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+            'Preencha todos os campos',
+          ),
+        ),
+      );
+    } else if (!_model.emailController!.text.contains('@') ||
+        !_model.emailController!.text.contains('.com')) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+            'Email inválido',
+          ),
+        ),
+      );
+    } else if (_model.passwordController!.text.length < 6) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+            'A senha deve conter no mínimo 6 caracteres',
+          ),
+        ),
+      );
+    } else if (_model.passwordController!.text !=
+        _model.passwordController2!.text) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+            'As senhas não coincidem',
+          ),
+        ),
+      );
+    } else {
+      authService.signUpUser(
+        context: context,
+        nome: _model.nameController!.text,
+        email: _model.emailController!.text,
+        senha: _model.passwordController!.text,
+      );
+
+      Navigator.pushNamed(context, '/');
+    }
   }
 
   @override
@@ -71,32 +112,32 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
         onWillPop: () async => false,
         child: Scaffold(
           key: scaffoldKey,
-          backgroundColor: Color(0xFF171717),
+          backgroundColor: const Color(0xFF171717),
           body: Stack(
             children: [
               Align(
-                alignment: AlignmentDirectional(0.00, -1.00),
+                alignment: const AlignmentDirectional(0.00, -1.00),
                 child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0, 50, 0, 0),
                   child: Container(
                     width: 300,
                     height: 30,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: Color(0xFF171717),
                     ),
                     child: Align(
-                      alignment: AlignmentDirectional(-1.00, 0.00),
+                      alignment: const AlignmentDirectional(-1.00, 0.00),
                       child: FlutterFlowIconButton(
-                        borderColor: Color(0x00171717),
+                        borderColor: const Color(0x00171717),
                         borderWidth: 0,
-                        fillColor: Color(0xFF171717),
-                        icon: Icon(
+                        fillColor: const Color(0xFF171717),
+                        icon: const Icon(
                           Icons.arrow_back_rounded,
                           color: Colors.white,
                           size: 32,
                         ),
                         onPressed: () async {
-                          Navigator.pushNamed(context, '/');
+                          Navigator.pushNamed(context, '/login');
                         },
                       ),
                     ),
@@ -104,18 +145,18 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                 ),
               ),
               Align(
-                alignment: AlignmentDirectional(0.00, 0.00),
+                alignment: const AlignmentDirectional(0.00, 0.00),
                 child: Container(
                   width: 300,
                   height: 470,
                   decoration: BoxDecoration(
-                    color: Color(0x00FFFFFF),
+                    color: const Color(0x00FFFFFF),
                     border: Border.all(
-                      color: Color(0x00FF0000),
+                      color: const Color(0x00FF0000),
                     ),
                   ),
                   child: Align(
-                    alignment: AlignmentDirectional(0.00, 0.00),
+                    alignment: const AlignmentDirectional(0.00, 0.00),
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       children: [
@@ -154,17 +195,17 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                           ],
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 25, 0, 0),
+                          padding: const EdgeInsetsDirectional.fromSTEB(0, 25, 0, 0),
                           child: Container(
                             width: 300,
                             height: 50,
                             decoration: BoxDecoration(
-                              color: Color(0xFF282828),
+                              color: const Color(0xFF282828),
                               borderRadius: BorderRadius.circular(20),
                             ),
                             child: Padding(
                               padding:
-                                  EdgeInsetsDirectional.fromSTEB(8, 0, 8, 0),
+                                  const EdgeInsetsDirectional.fromSTEB(8, 0, 8, 0),
                               child: TextFormField(
                                   controller: _model.nameController,
                                   obscureText: false,
@@ -174,7 +215,7 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                         .labelMedium
                                         .override(
                                           fontFamily: 'Montserrat',
-                                          color: Color(0x27FFFFFF),
+                                          color: const Color(0x27FFFFFF),
                                           fontWeight: FontWeight.w500,
                                         ),
                                     hintText: 'Insira seu nome',
@@ -182,31 +223,31 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                         .labelMedium
                                         .override(
                                           fontFamily: 'Montserrat',
-                                          color: Color(0x67FFFFFF),
+                                          color: const Color(0x67FFFFFF),
                                         ),
                                     enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
+                                      borderSide: const BorderSide(
                                         color: Color(0x00E0E3E7),
                                         width: 1,
                                       ),
                                       borderRadius: BorderRadius.circular(8),
                                     ),
                                     focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
+                                      borderSide: const BorderSide(
                                         color: Color(0x004B39EF),
                                         width: 1,
                                       ),
                                       borderRadius: BorderRadius.circular(8),
                                     ),
                                     errorBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
+                                      borderSide: const BorderSide(
                                         color: Color(0x00FF5963),
                                         width: 1,
                                       ),
                                       borderRadius: BorderRadius.circular(8),
                                     ),
                                     focusedErrorBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
+                                      borderSide: const BorderSide(
                                         color: Color(0x00FF5963),
                                         width: 1,
                                       ),
@@ -218,22 +259,23 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                       .override(
                                         fontFamily: 'Montserrat',
                                         fontWeight: FontWeight.w500,
+                                        color: const Color(0x67FFFFFF),
                                       )),
                             ),
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                          padding: const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
                           child: Container(
                             width: 300,
                             height: 50,
                             decoration: BoxDecoration(
-                              color: Color(0xFF282828),
+                              color: const Color(0xFF282828),
                               borderRadius: BorderRadius.circular(20),
                             ),
                             child: Padding(
                               padding:
-                                  EdgeInsetsDirectional.fromSTEB(8, 0, 8, 0),
+                                  const EdgeInsetsDirectional.fromSTEB(8, 0, 8, 0),
                               child: TextFormField(
                                 controller: _model.emailController,
                                 autofocus: true,
@@ -244,7 +286,7 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                       .labelMedium
                                       .override(
                                         fontFamily: 'Montserrat',
-                                        color: Color(0x27FFFFFF),
+                                        color: const Color(0x27FFFFFF),
                                         fontWeight: FontWeight.w500,
                                       ),
                                   hintText: 'Insira seu email institucional',
@@ -252,31 +294,31 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                       .labelMedium
                                       .override(
                                         fontFamily: 'Montserrat',
-                                        color: Color(0x67FFFFFF),
+                                        color: const Color(0x67FFFFFF),
                                       ),
                                   enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
+                                    borderSide: const BorderSide(
                                       color: Color(0x00E0E3E7),
                                       width: 1,
                                     ),
                                     borderRadius: BorderRadius.circular(8),
                                   ),
                                   focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
+                                    borderSide: const BorderSide(
                                       color: Color(0x004B39EF),
                                       width: 1,
                                     ),
                                     borderRadius: BorderRadius.circular(8),
                                   ),
                                   errorBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
+                                    borderSide: const BorderSide(
                                       color: Color(0x00FF5963),
                                       width: 1,
                                     ),
                                     borderRadius: BorderRadius.circular(8),
                                   ),
                                   focusedErrorBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
+                                    borderSide: const BorderSide(
                                       color: Color(0x00FF5963),
                                       width: 1,
                                     ),
@@ -288,23 +330,24 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                     .override(
                                       fontFamily: 'Montserrat',
                                       fontWeight: FontWeight.w500,
+                                      color: const Color(0x67FFFFFF),
                                     ),
                               ),
                             ),
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                          padding: const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
                           child: Container(
                             width: 300,
                             height: 50,
                             decoration: BoxDecoration(
-                              color: Color(0xFF282828),
+                              color: const Color(0xFF282828),
                               borderRadius: BorderRadius.circular(20),
                             ),
                             child: Padding(
                               padding:
-                                  EdgeInsetsDirectional.fromSTEB(8, 0, 8, 0),
+                                  const EdgeInsetsDirectional.fromSTEB(8, 0, 8, 0),
                               child: TextFormField(
                                 controller: _model.passwordController,
                                 autofocus: true,
@@ -315,7 +358,7 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                       .labelMedium
                                       .override(
                                         fontFamily: 'Montserrat',
-                                        color: Color(0x27FFFFFF),
+                                        color: const Color(0x27FFFFFF),
                                         fontWeight: FontWeight.w500,
                                       ),
                                   hintText: 'Insira sua senha',
@@ -323,31 +366,31 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                       .labelMedium
                                       .override(
                                         fontFamily: 'Montserrat',
-                                        color: Color(0x67FFFFFF),
+                                        color: const Color(0x67FFFFFF),
                                       ),
                                   enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
+                                    borderSide: const BorderSide(
                                       color: Color(0x00E0E3E7),
                                       width: 1,
                                     ),
                                     borderRadius: BorderRadius.circular(8),
                                   ),
                                   focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
+                                    borderSide: const BorderSide(
                                       color: Color(0x004B39EF),
                                       width: 1,
                                     ),
                                     borderRadius: BorderRadius.circular(8),
                                   ),
                                   errorBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
+                                    borderSide: const BorderSide(
                                       color: Color(0x00FF5963),
                                       width: 1,
                                     ),
                                     borderRadius: BorderRadius.circular(8),
                                   ),
                                   focusedErrorBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
+                                    borderSide: const BorderSide(
                                       color: Color(0x00FF5963),
                                       width: 1,
                                     ),
@@ -362,7 +405,7 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                       _model.passwordVisibility1
                                           ? Icons.visibility_outlined
                                           : Icons.visibility_off_outlined,
-                                      color: Color(0x4DFFFFFF),
+                                      color: const Color(0x4DFFFFFF),
                                       size: 20,
                                     ),
                                   ),
@@ -372,23 +415,24 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                     .override(
                                       fontFamily: 'Montserrat',
                                       fontWeight: FontWeight.w500,
+                                      color: const Color(0x67FFFFFF),
                                     ),
                               ),
                             ),
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                          padding: const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
                           child: Container(
                             width: 300,
                             height: 50,
                             decoration: BoxDecoration(
-                              color: Color(0xFF282828),
+                              color: const Color(0xFF282828),
                               borderRadius: BorderRadius.circular(20),
                             ),
                             child: Padding(
                               padding:
-                                  EdgeInsetsDirectional.fromSTEB(8, 0, 8, 0),
+                                  const EdgeInsetsDirectional.fromSTEB(8, 0, 8, 0),
                               child: TextFormField(
                                 controller: _model.passwordController2,
                                 autofocus: true,
@@ -399,7 +443,7 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                       .labelMedium
                                       .override(
                                         fontFamily: 'Montserrat',
-                                        color: Color(0x27FFFFFF),
+                                        color: const Color(0x27FFFFFF),
                                         fontWeight: FontWeight.w500,
                                       ),
                                   hintText: 'Confirme sua senha',
@@ -407,31 +451,31 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                       .labelMedium
                                       .override(
                                         fontFamily: 'Montserrat',
-                                        color: Color(0x67FFFFFF),
+                                        color: const Color(0x67FFFFFF),
                                       ),
                                   enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
+                                    borderSide: const BorderSide(
                                       color: Color(0x00E0E3E7),
                                       width: 1,
                                     ),
                                     borderRadius: BorderRadius.circular(8),
                                   ),
                                   focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
+                                    borderSide: const BorderSide(
                                       color: Color(0x004B39EF),
                                       width: 1,
                                     ),
                                     borderRadius: BorderRadius.circular(8),
                                   ),
                                   errorBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
+                                    borderSide: const BorderSide(
                                       color: Color(0x00FF5963),
                                       width: 1,
                                     ),
                                     borderRadius: BorderRadius.circular(8),
                                   ),
                                   focusedErrorBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
+                                    borderSide: const BorderSide(
                                       color: Color(0x00FF5963),
                                       width: 1,
                                     ),
@@ -446,7 +490,7 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                       _model.passwordVisibility2
                                           ? Icons.visibility_outlined
                                           : Icons.visibility_off_outlined,
-                                      color: Color(0x4DFFFFFF),
+                                      color: const Color(0x4DFFFFFF),
                                       size: 0,
                                     ),
                                   ),
@@ -456,13 +500,14 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                     .override(
                                       fontFamily: 'Montserrat',
                                       fontWeight: FontWeight.w500,
+                                      color: const Color(0x67FFFFFF),
                                     ),
                               ),
                             ),
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 80, 0, 0),
+                          padding: const EdgeInsetsDirectional.fromSTEB(0, 80, 0, 0),
                           child: FFButtonWidget(
                             onPressed: () {
                               signUpUser();
@@ -472,9 +517,9 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                               width: double.infinity,
                               height: 40,
                               padding:
-                                  EdgeInsetsDirectional.fromSTEB(24, 0, 24, 0),
+                                  const EdgeInsetsDirectional.fromSTEB(24, 0, 24, 0),
                               iconPadding:
-                                  EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                                  const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
                               color: Colors.white,
                               textStyle: FlutterFlowTheme.of(context)
                                   .titleSmall
@@ -484,7 +529,7 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                     fontWeight: FontWeight.bold,
                                   ),
                               elevation: 3,
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                 color: Colors.transparent,
                               ),
                               borderRadius: BorderRadius.circular(25),
@@ -498,13 +543,13 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                 ),
               ),
               Align(
-                alignment: AlignmentDirectional(0.00, 1.00),
+                alignment: const AlignmentDirectional(0.00, 1.00),
                 child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 30),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 30),
                   child: Container(
                     width: 300,
                     height: 50,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: Color(0xFF171717),
                     ),
                     child: Column(
@@ -512,7 +557,7 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Align(
-                          alignment: AlignmentDirectional(0.00, 0.00),
+                          alignment: const AlignmentDirectional(0.00, 0.00),
                           child: RichText(
                             textScaleFactor:
                                 MediaQuery.of(context).textScaleFactor,
@@ -544,7 +589,7 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
+                          padding: const EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
                           child: Text(
                             'Termos de Privacidade',
                             style: FlutterFlowTheme.of(context)
