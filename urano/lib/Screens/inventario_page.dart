@@ -165,7 +165,7 @@ class _MateriaisListaPageWidgetState extends State<MateriaisListaPageWidget> {
                                     builder: (context, snapshot) {
                                       if (snapshot.connectionState ==
                                           ConnectionState.waiting) {
-                                        return CircularProgressIndicator(); 
+                                        return CircularProgressIndicator();
                                       } else if (snapshot.hasError) {
                                         return Center(
                                           child:
@@ -211,7 +211,11 @@ class _MateriaisListaPageWidgetState extends State<MateriaisListaPageWidget> {
                                                         .override(
                                                           fontFamily:
                                                               'Montserrat',
-                                                          color: pecas[index].quantidade < 10 ? Colors.red : Colors.white,
+                                                          color: pecas[index]
+                                                                      .quantidade <
+                                                                  10
+                                                              ? Colors.red
+                                                              : Colors.white,
                                                           fontSize: 16,
                                                           fontWeight:
                                                               FontWeight.normal,

@@ -30,7 +30,6 @@ const aviaoSchema = new mongoose.Schema({
   }],
   statusDisponibilidade: {
     type: String,
-    enum: ['Em Serviço', 'Fora de Serviço'],
     required: true,
   },
   localizacaoAtual: {
@@ -41,9 +40,13 @@ const aviaoSchema = new mongoose.Schema({
     data: Date,
     duracao: Number,
   }],
-  picture: {
+  statusManutencao: {
     type: String,
     required: true,
+  },
+  dataUltimaAtualizacao: {
+    type: Date,
+    default: Date.now,
   },
 });
 

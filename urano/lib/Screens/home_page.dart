@@ -252,68 +252,72 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           Padding(
                                             padding: const EdgeInsetsDirectional
                                                 .fromSTEB(0, 10, 0, 0),
-                                            child: Container(
-                                              width: 164,
-                                              height: 150,
-                                              decoration: BoxDecoration(
-                                                color: const Color(0xFF171717),
-                                                borderRadius:
-                                                    BorderRadius.circular(20),
-                                              ),
-                                              child: Column(
-                                                mainAxisSize: MainAxisSize.max,
-                                                children: [
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsetsDirectional
-                                                            .fromSTEB(
-                                                            0, 15, 0, 0),
-                                                    child:
-                                                        FlutterFlowIconButton(
-                                                      borderColor: const Color(
-                                                          0x004B39EF),
-                                                      borderRadius: 20,
-                                                      borderWidth: 1,
-                                                      buttonSize: 90,
-                                                      fillColor: const Color(
-                                                          0x004B39EF),
-                                                      icon: const Icon(
-                                                        Icons
-                                                            .airplanemode_active,
-                                                        color: Colors.white,
-                                                        size: 72,
+                                            child: GestureDetector(
+                                              onTap: () async {
+                                                await Navigator.pushNamed(
+                                                    context, '/ativos');
+                                              },
+                                              child: Container(
+                                                width: 164,
+                                                height: 150,
+                                                decoration: BoxDecoration(
+                                                  color:
+                                                      const Color(0xFF171717),
+                                                  borderRadius:
+                                                      BorderRadius.circular(20),
+                                                ),
+                                                child: Column(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  children: [
+                                                    const Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0, 15, 0, 0),
+                                                      child:
+                                                          FlutterFlowIconButton(
+                                                        borderColor:
+                                                            Color(0x004B39EF),
+                                                        borderRadius: 20,
+                                                        borderWidth: 1,
+                                                        buttonSize: 90,
+                                                        fillColor:
+                                                            Color(0x004B39EF),
+                                                        icon: Icon(
+                                                          Icons
+                                                              .airplanemode_active,
+                                                          color: Colors.white,
+                                                          size: 72,
+                                                        ),
                                                       ),
-                                                      onPressed: () {
-                                                        print(
-                                                            'IconButton pressed ...');
-                                                      },
                                                     ),
-                                                  ),
-                                                  Row(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      Text(
-                                                        'Ativos',
-                                                        style: FlutterFlowTheme
-                                                                .of(context)
-                                                            .bodyMedium
-                                                            .override(
-                                                              fontFamily:
-                                                                  'Montserrat',
-                                                              color:
-                                                                  Colors.white,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w600,
-                                                            ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ],
+                                                    Row(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Text(
+                                                          'Ativos',
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Montserrat',
+                                                                color: Colors
+                                                                    .white,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
+                                                              ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ],
+                                                ),
                                               ),
                                             ),
                                           ),
@@ -462,72 +466,73 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                               padding:
                                                   const EdgeInsetsDirectional
                                                       .fromSTEB(0, 10, 0, 0),
-                                              child: Container(
-                                                width: 164,
-                                                height: 150,
-                                                decoration: BoxDecoration(
-                                                  color:
-                                                      const Color(0xFF171717),
-                                                  borderRadius:
-                                                      BorderRadius.circular(20),
-                                                ),
-                                                child: Column(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  children: [
-                                                    Padding(
-                                                      padding:
-                                                          const EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                              0, 15, 0, 0),
-                                                      child:
-                                                          FlutterFlowIconButton(
-                                                        borderColor:
-                                                            const Color(
-                                                                0x004B39EF),
-                                                        borderRadius: 20,
-                                                        borderWidth: 1,
-                                                        buttonSize: 90,
-                                                        fillColor: const Color(
-                                                            0x004B39EF),
-                                                        icon: const FaIcon(
-                                                          FontAwesomeIcons
-                                                              .toolbox,
-                                                          color: Colors.white,
-                                                          size: 72,
+                                              child: GestureDetector(
+                                                onTap: () {
+                                                  Navigator.pushNamed(
+                                                      context, '/material');
+                                                },
+                                                child: Container(
+                                                  width: 164,
+                                                  height: 150,
+                                                  decoration: BoxDecoration(
+                                                    color:
+                                                        const Color(0xFF171717),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            20),
+                                                  ),
+                                                  child: Column(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    children: [
+                                                      const Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(0, 15,
+                                                                    0, 0),
+                                                        child:
+                                                            FlutterFlowIconButton(
+                                                          borderColor:
+                                                              Color(0x004B39EF),
+                                                          borderRadius: 20,
+                                                          borderWidth: 1,
+                                                          buttonSize: 90,
+                                                          fillColor:
+                                                              Color(0x004B39EF),
+                                                          icon: FaIcon(
+                                                            FontAwesomeIcons
+                                                                .toolbox,
+                                                            color: Colors.white,
+                                                            size: 72,
+                                                          ),
                                                         ),
-                                                        onPressed: () {
-                                                          Navigator.pushNamed(
-                                                              context,
-                                                              '/material');
-                                                        },
                                                       ),
-                                                    ),
-                                                    Row(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
-                                                      children: [
-                                                        Text(
-                                                          'Materiais',
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Montserrat',
-                                                                color: Colors
-                                                                    .white,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w600,
-                                                              ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ],
+                                                      Row(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          Text(
+                                                            'Materiais',
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Montserrat',
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600,
+                                                                ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ],
+                                                  ),
                                                 ),
                                               ),
                                             ),

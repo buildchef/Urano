@@ -6,6 +6,7 @@ export interface IPeca extends Document {
     classe: ClassePeca | string;
     preco: string;
     status: boolean;
+    quantidade: string;
 }
 declare const Peca: mongoose.Model<IPeca, {}, {}, {}, mongoose.Document<unknown, {}, IPeca> & IPeca & {
     _id: mongoose.Types.ObjectId;

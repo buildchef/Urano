@@ -27,7 +27,7 @@ export const aviaoController = {
             statusDisponibilidade,
             localizacaoAtual,
             historicoVoos,
-            picture
+            statusManutencao
         } = req.body;
 
         try {
@@ -41,11 +41,11 @@ export const aviaoController = {
                 statusDisponibilidade,
                 localizacaoAtual,
                 historicoVoos,
-                picture
+                statusManutencao,
+                dataUltimaAtualizacao: Date.now()
             };
 
-            const aviao = validarAviao(aviaoData);
-            const createdAviao = await Aviao.create(aviao.value);
+            const createdAviao = await Aviao.create(aviaoData);
 
             return res.status(201).send(createdAviao);
         } catch (err) {
@@ -81,7 +81,7 @@ export const aviaoController = {
             statusDisponibilidade,
             localizacaoAtual,
             historicoVoos,
-            picture
+            statusManutencao
         } = req.body;
 
         try {
@@ -95,12 +95,11 @@ export const aviaoController = {
                 statusDisponibilidade,
                 localizacaoAtual,
                 historicoVoos,
-                picture
+                statusManutencao,
+                dataUltimaAtualizacao: Date.now()
             };
 
-            const aviao = validarAviao(aviaoData);
-        
-            const updatedAviao = await Aviao.findByIdAndUpdate(id, aviao.value, { new: true })
+            const updatedAviao = await Aviao.findByIdAndUpdate(id, aviaoData, { new: true })
 
 
             return res.status(200).send(updatedAviao);

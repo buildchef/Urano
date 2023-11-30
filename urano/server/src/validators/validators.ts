@@ -193,7 +193,7 @@ function validarAviao(inputAviao: IInputAviao) {
         custo: Joi.number().required(),
       })
     ),
-    statusDisponibilidade: Joi.string().valid('Em Serviço', 'Fora de Serviço').required(),
+    statusDisponibilidade: Joi.string().required(),
     localizacaoAtual: Joi.string(),
     historicoVoos: Joi.array().items(
       Joi.object({
@@ -202,7 +202,7 @@ function validarAviao(inputAviao: IInputAviao) {
         duracao: Joi.number().required(),
       })
     ),
-    picture: Joi.string().required(),
+    statusManutencao: Joi.string().required(),
   });
 
   return bodySchema.validate(inputAviao);

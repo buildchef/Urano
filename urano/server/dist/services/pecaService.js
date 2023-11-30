@@ -30,19 +30,12 @@ class PecaService {
     }
     adicionar(inputAdicionarPeca) {
         return __awaiter(this, void 0, void 0, function* () {
-            inputAdicionarPeca.classe = inputAdicionarPeca.classe.toUpperCase();
-            const { error, value } = this.validator.validarInputAdicionarPeca(inputAdicionarPeca);
-            const pecaVerificar = yield this.buscar({ classe: inputAdicionarPeca.classe, codigo: inputAdicionarPeca.codigo });
-            if (error || pecaVerificar.length > 0) {
-                throw new Error("Erro na validacao. Os dados informados sao invalidos.");
-            }
-            ;
             // @ts-ignore
             const novaPeca = new pecaModel_1.default({
                 nome: inputAdicionarPeca.nome,
                 codigo: inputAdicionarPeca.codigo,
                 // @ts-ignore
-                classe: classePeca_1.ClassePeca[inputAdicionarPeca.classe.toUpperCase()],
+                quantidade: inputAdicionarPeca.quantidade,
                 preco: inputAdicionarPeca.preco,
                 status: true
             });
