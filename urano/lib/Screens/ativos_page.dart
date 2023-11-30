@@ -2,7 +2,6 @@
 
 import 'package:urano/Services/ativo_service.dart';
 import 'package:urano/Widgets/ativo_widget.dart';
-import 'package:urano/flutter_flow/flutter_flow_widgets.dart';
 
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
