@@ -1,6 +1,8 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import 'package:urano/Utils/constants.dart';
+
 class Ponto {
   final String identificadorUnico;
   final String data;
@@ -36,7 +38,7 @@ class PontoService {
     required String chave
   }) async {
     final response =
-        await http.get(Uri.parse('http://192.168.15.7:3000/api/ponto/buscar'),
+        await http.get(Uri.parse('${Constants.API_URL}/api/ponto/buscar'),
         headers: <String, String>{
           'identificador_unico': chave
         });

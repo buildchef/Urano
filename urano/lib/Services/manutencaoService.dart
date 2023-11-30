@@ -1,6 +1,8 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import 'package:urano/Utils/constants.dart';
+
 class Manutencao {
   final String titulo;
   final String codigo;
@@ -42,7 +44,7 @@ class ManutencaoService {
     required String responsavel
   }) async {
     final response =
-        await http.get(Uri.parse('http://192.168.15.7:3000/api/manutencao/filtrar'),
+        await http.get(Uri.parse('${Constants.API_URL}/api/manutencao/filtrar'),
         headers: <String, String>{
           'responsavel': responsavel
         });
@@ -67,7 +69,7 @@ class ManutencaoService {
     required String responsavel
   }) async {
     final response =
-        await http.get(Uri.parse('http://192.168.15.7:3000/api/chamado'));
+        await http.get(Uri.parse('${Constants.API_URL}/api/chamado'));
 
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
@@ -89,7 +91,7 @@ class ManutencaoService {
     required String codigo
   }) async {
     final response =
-        await http.put(Uri.parse('http://192.168.15.7:3000/api/manutencao/retornar'),
+        await http.put(Uri.parse('${Constants.API_URL}/api/manutencao/retornar'),
           body: jsonEncode({
             'codigo': codigo
           }),
@@ -107,7 +109,7 @@ class ManutencaoService {
     required String codigo
   }) async {
     final response =
-        await http.put(Uri.parse('http://192.168.15.7:3000/api/manutencao/concluir'),
+        await http.put(Uri.parse('${Constants.API_URL}/api/manutencao/concluir'),
           body: jsonEncode({
             'codigo': codigo
           }),
@@ -130,7 +132,7 @@ class ManutencaoService {
     required String responsavel
   }) async {
     final response =
-        await http.post(Uri.parse('http://192.168.15.7:3000/api/chamado'),
+        await http.post(Uri.parse('${Constants.API_URL}/api/chamado'),
           body: jsonEncode({
             'titulo': titulo,
             'descricao': descricao,
@@ -152,7 +154,7 @@ class ManutencaoService {
 
         Future<List<Manutencao>> getManutencoesConcluidas() async {
     final response =
-        await http.get(Uri.parse('http://192.168.15.7:3000/api/manutencao/filtrar'),
+        await http.get(Uri.parse('${Constants.API_URL}/api/manutencao/filtrar'),
           headers: <String, String>{
             'status': 'Pronto'
           }
@@ -176,7 +178,7 @@ class ManutencaoService {
 
           Future<List<Manutencao>> getManutencoesPendentes() async {
     final response =
-        await http.get(Uri.parse('http://192.168.15.7:3000/api/manutencao/filtrar'),
+        await http.get(Uri.parse('${Constants.API_URL}/api/manutencao/filtrar'),
           headers: <String, String>{
             'responsavel': 'Pendente'
           }
@@ -202,7 +204,7 @@ class ManutencaoService {
     required String codigo,
   }) async {
     final response =
-        await http.put(Uri.parse('http://192.168.15.7:3000/api/manutencao/retomar'),
+        await http.put(Uri.parse('${Constants.API_URL}/api/manutencao/retomar'),
           body: jsonEncode({
             'codigo': codigo,
           }),
@@ -221,7 +223,7 @@ class ManutencaoService {
     required String responsavel
   }) async {
     final response =
-        await http.put(Uri.parse('http://192.168.15.7:3000/api/manutencao/atribuir'),
+        await http.put(Uri.parse('${Constants.API_URL}/api/manutencao/atribuir'),
           body: jsonEncode({
             'codigo': codigo,
             'responsavel': responsavel
